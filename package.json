@@ -1,9 +1,13 @@
 {
-  "name": "react-front-end",
+  "name": "codi-client",
+  "description": "Codi Client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "axios": "^0.18.1",
+    "classnames": "^2.3.2",
+    "normalize.css": "^8.0.1",
+    "openai": "^3.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8"
@@ -23,5 +27,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:3000"
 }
