@@ -10,11 +10,11 @@ const ButtonAppBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Codi
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+            codi
           </Typography>
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Sign Up</Button>
+          <Button color="inherit" size="large">Login</Button>
+          <Button color="inherit" size="large">Sign Up</Button>
         </Toolbar>
       </AppBar>
     </Box>

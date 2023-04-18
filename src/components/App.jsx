@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { createTheme, ThemeProvider, Container, Typography, Button } from '@mui/material';
+import { createTheme, ThemeProvider} from '@mui/material';
 import ButtonAppBar from './navbar';
 
 const codiTheme = createTheme({});
