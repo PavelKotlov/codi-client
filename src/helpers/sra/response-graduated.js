@@ -1,4 +1,4 @@
-const futureDate = require("./helpers/future-date");
+const futureDate = require("../local-date/futureDate");
 
 const responseGraduated = (selection, cardObject) => {
   const today = new Date();
