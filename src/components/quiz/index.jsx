@@ -1,7 +1,6 @@
 import React from "react";
 import { getFlashcardsForQuiz } from "../../helpers/selector_quiz";
 import useApplicationData from "../../hooks/useApplicationData";
-import useVisualMode from "../../hooks/useVisualMode";
 import Front from "./Front";
 import Back from "./Back";
 import QuizComplete from "./QuizComplete";
@@ -12,29 +11,28 @@ export default function Quiz(props) {
   const [index, setIndex] = useState(0);
   const [counter, setCounter] = useState(1);
   const [cardsQueue, setCardsQueue] = useState([]);
-
-  const { state, addReview } = useApplicationData();
-  const { mode, transition } = useVisualMode("FRONT");
-
-  const currentCard = cardsQueue[index];
-
-  // useEffect(() => {
-  //   setCardsQueue(getFlashcardsForQuiz(state));
-  //   console.log("cardsQueue", cardsQueue);
-  // }, [state]);
+  const [currentCard, setCurrentCard] = useState();
+  const [mode, setMode] = useState("FRONT");
+  const { state, addReview, getFlashcards } = useApplicationData();
 
   useEffect(() => {
-    const filteredCards = getFlashcardsForQuiz(state);
-    setCardsQueue((prev) => {
-      const newCardsQueue = [
-        ...prev,
-        ...filteredCards.filter((card) => !prev.includes(card)),
-      ];
-      return newCardsQueue.filter(
-        (card) => !card.due_at || Date.parse(card.due_at) <= Date.now()
-      );
-    });
-  }, [state]);
+    getFlashcards(state.topic.id)
+    .then((data) => {
+      const filteredCards = getFlashcardsForQuiz(state, data);
+      setCardsQueue((prev) => {
+        const newCardsQueue = [
+          ...prev,
+          ...filteredCards.filter((card) => !prev.includes(card)),
+        ];
+        const cardsQueue = newCardsQueue.filter(
+          (card) => !card.due_at || Date.parse(card.due_at) <= Date.now()
+        );
+        setCurrentCard(cardsQueue[index]);
+        return cardsQueue;
+      });
+    })
+   
+  }, []);
 
   const updateCardsQueue = async (card, response_type) => {
     const updatedCardsQueue = [...cardsQueue];
@@ -56,44 +54,52 @@ export default function Quiz(props) {
       const indexToUpdate = updatedCardsQueue.findIndex((card) => {
         return card.id === updatedCard.id;
       });
-
       if (indexToUpdate !== -1) {
         updatedCardsQueue[indexToUpdate] = updatedCard;
-        setCardsQueue(updatedCardsQueue);
-        console.log("updatedCardsQueue:", updatedCardsQueue);
       }
+      setCardsQueue(updatedCardsQueue);
     } catch (error) {
       console.log(error);
     }
+    return updatedCardsQueue;
   };
 
-  const handleClick = async (response) => {
-    await updateCardsQueue(currentCard, response);
-    setCounter(prev => prev + 1);
-    setIndex(prev => prev + 1 >= cardsQueue.length ? 0 : prev + 1);
-    console.log('counter', counter, 'index', index)
 
-    if ((state.topic.max_cards > cardsQueue.length && counter >= state.topic.max_cards) || (state.topic.max_cards <= cardsQueue.length && index >=  cardsQueue.length - 1)) {
-      transition("COMPLETE");
+  const handleClick = async (response) => {
+    const updatedQueue = await updateCardsQueue(currentCard, response);
+    setCounter(prev => prev + 1);
+    setIndex(prev => {
+      let nextIndex = prev + 1 >= updatedQueue.length ? 0 : prev + 1;
+      while (!updatedQueue[nextIndex] && nextIndex > 0) {
+        nextIndex--;
+      }
+      if (nextIndex < 0 || !updatedQueue[nextIndex]) {
+        setMode("COMPLETE");
+      }
+      setCurrentCard(updatedQueue[nextIndex]);
+      return nextIndex;
+    })
+
+    if ((mode !== 'COMPLETE' && counter < state.topic.max_cards && updatedQueue.length >= 1)) {
+      setMode("FRONT");
     } else {
-      transition("FRONT");
+      setMode("COMPLETE");
     }
   };
 
   const codiTheme = createTheme({});
-
   return (
     <ThemeProvider theme={codiTheme}>
-      {mode === "COMPLETE" && <QuizComplete />}
       {currentCard && mode === "FRONT" && (
         <Front
           currentCard={currentCard}
-          onClick={() => transition("BACK")}
+          onClick={() => setMode("BACK")}
         />
       )}
       {currentCard && mode === "BACK" && (
         <Back currentCard={currentCard} handleClick={handleClick} />
       )}
+      {mode === "COMPLETE" && <QuizComplete />}
     </ThemeProvider>
   );
 }
