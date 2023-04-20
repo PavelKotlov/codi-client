@@ -1,17 +1,14 @@
-import { Grid, CircularProgress, Skeleton } from '@mui/material';
 import React from 'react';
+import { useState, useContext } from 'react';
+import { topicContext } from '../../providers/TopicProvider';
 import WidgetList from './WidgetList';
 import BarChart from './BarChart';
 import Gauge from './Gauge';
 import HeatMap from './HeatMap';
-
-import { useState, useContext } from 'react';
-
-import { topicContext } from '../../providers/TopicProvider';
+import { Grid, Skeleton } from '@mui/material';
 
 const Stats = () => {
-  const { loading, ease, reviews, widgets, maturityPercentage } =
-    useContext(topicContext);
+  const { loading } = useContext(topicContext);
 
   const [graph, setGraph] = useState('gauge');
   const switchGraph = function () {
@@ -24,21 +21,14 @@ const Stats = () => {
         {loading ? (
           <Skeleton animation='wave' variant='rounded' height={300} />
         ) : (
-          <WidgetList widgets={widgets} />
+          <WidgetList />
         )}
       </Grid>
 
       <Grid item xs={12} lg={8}>
-        {graph === 'gauge' && !loading && (
-          <Gauge
-            maturityPercentage={maturityPercentage}
-            onClick={switchGraph}
-          />
-        )}
+        {!loading && graph === 'gauge' && <Gauge onClick={switchGraph} />}
 
-        {graph === 'bar' && !loading && (
-          <BarChart ease={ease} onClick={switchGraph} />
-        )}
+        {!loading && graph === 'bar' && <BarChart onClick={switchGraph} />}
 
         {loading && (
           <Skeleton animation='wave' variant='rounded' height={300} />
@@ -49,7 +39,7 @@ const Stats = () => {
         {loading ? (
           <Skeleton animation='wave' variant='rounded' height={150} />
         ) : (
-          <HeatMap reviews={reviews} />
+          <HeatMap />
         )}
       </Grid>
     </Grid>

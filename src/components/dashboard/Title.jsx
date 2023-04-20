@@ -18,7 +18,3 @@ const Title = ({ name }) => {
 };
 
 export default Title;
-
-{
-  /* <Typography variant='h3' component='h1' color='primary' align='center'> */
-}

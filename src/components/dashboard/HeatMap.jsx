@@ -1,10 +1,12 @@
 import { Card, CardContent } from '@mui/material';
 import React from 'react';
 import CalendarHeatmap from 'react-calendar-heatmap';
+import { Tooltip } from 'react-tooltip';
+import { useContext } from 'react';
+import { topicContext } from '../../providers/TopicProvider';
+import 'react-tooltip/dist/react-tooltip.css';
 import 'react-calendar-heatmap/dist/styles.css';
 import './HeatMap.css';
-import { Tooltip } from 'react-tooltip';
-import 'react-tooltip/dist/react-tooltip.css';
 
 const today = new Date();
 const _today = new Date();
@@ -12,7 +14,9 @@ const oneYearAgo = new Date(_today.setDate(_today.getDate() - 365));
 const oneDayAgoFormatted = oneYearAgo.toISOString().slice(0, 10);
 const todayFormatted = today.toISOString().slice(0, 10);
 
-const HeatMap = ({ reviews }) => {
+const HeatMap = () => {
+  const { reviews } = useContext(topicContext);
+
   const counts = reviews.map((e) => e.count);
   const maxCount = Math.max(...counts);
 

@@ -1,9 +1,12 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import WidgetListItem from './WidgetListItem';
+import { useContext } from 'react';
+import { topicContext } from '../../providers/TopicProvider';
 
-const WidgetList = (props) => {
-  const widgets = props.widgets.map((widget) => {
+const WidgetList = () => {
+  const { widgets } = useContext(topicContext);
+  const widgetsComponents = widgets.map((widget) => {
     return (
       <WidgetListItem
         key={widget.id}
@@ -13,10 +16,9 @@ const WidgetList = (props) => {
       />
     );
   });
-
   return (
     <Grid container spacing={3}>
-      {widgets}
+      {widgetsComponents}
     </Grid>
   );
 };
