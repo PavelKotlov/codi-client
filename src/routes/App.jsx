@@ -1,15 +1,15 @@
 import React from 'react';
-import './App.css';
 import { createTheme, ThemeProvider} from '@mui/material';
-import ButtonAppBar from './navbar';
+import Quiz from '../pages/quiz';
 
 const codiTheme = createTheme({});
 
+
 const App = () => {
+
   return (
     <ThemeProvider theme={codiTheme}>
-      <ButtonAppBar />
-      
+      <Quiz />
     </ThemeProvider>
   );
 }

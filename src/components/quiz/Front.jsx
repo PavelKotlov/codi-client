@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card, Grid, Typography, CardContent, CardActions, createTheme} from '@mui/material';
-import "./styles.css";
+import "./quiz.css";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import useApplicationData from '../../hooks/useApplicationData';
 
@@ -17,7 +17,7 @@ export default function Front(props) {
       style={{ minHeight: '100vh' }}
     >
       <Grid item xs={2}>
-        <Card sx={{ borderRadius: '16px', boxShadow: 2 }} className='box-container'>
+        <Card sx={{ borderRadius: '16px', boxShadow: 3 }} className='box-container'>
           <CardContent>
             <Typography gutterBottom variant="h4" className='topic'>{state.topic.name}</Typography>
           </CardContent>
@@ -27,11 +27,11 @@ export default function Front(props) {
           
           <CardActions>
             {currentCard.type === 'CONCEPT' &&
-            <Button className='answer-button' size="small" onClick={onClick}><KeyboardDoubleArrowRightIcon className='arrow-icon'/>
+            <Button className='answer-button'  size="small" onClick={onClick}>View Answer<KeyboardDoubleArrowRightIcon className='arrow-icon'/>
             </Button>}
-            {currentCard.type === 'CHALLANGE' &&
+            {currentCard.type === 'CHALLENGE' &&
             <Button className="answer-button" onClick={onClick}>
-              <KeyboardDoubleArrowRightIcon className='arrow-icon'/>
+              View Answer<KeyboardDoubleArrowRightIcon className='arrow-icon'/>
             </Button>}
           </CardActions>
         </Card>
