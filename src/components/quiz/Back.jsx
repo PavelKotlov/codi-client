@@ -1,8 +1,9 @@
 import { Button, Card, Grid, Typography, ButtonGroup, CardContent, CardActions, Divider} from '@mui/material';
+import ProgressBar from './ProgressBar';
 import "./quiz.css";
 
 export default function Back(props) {
-  const { currentCard, handleClick } = props;
+  const { currentCard, handleClick, progress } = props;
 
   return (
     <Grid
@@ -46,8 +47,8 @@ export default function Back(props) {
           </Grid>
         </CardActions>
       </Card>
+      <ProgressBar progress={progress}/>
     </Grid>
-
   );
 }
 

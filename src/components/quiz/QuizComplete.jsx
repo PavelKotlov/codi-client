@@ -14,7 +14,7 @@ export default function QuizComplete (props) {
       style={{ minHeight: '100vh' }}
     >
       <Box>
-      <Typography gutterBottom variant="h4" color="textSecondary" className="complete-message">Congratulations!</Typography>
+      <Typography gutterBottom variant="h4" color="textSecondary" className="complete-message">Well Done!</Typography>
       <Button variant="contained" color='secondary'>Exit</Button>
       </Box>
     </Grid>

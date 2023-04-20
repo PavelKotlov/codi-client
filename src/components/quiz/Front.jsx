@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button, Card, Grid, Typography, CardContent, CardActions, createTheme} from '@mui/material';
+import { Button, Card, Grid, Typography, CardContent, CardActions} from '@mui/material';
 import "./quiz.css";
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import useApplicationData from '../../hooks/useApplicationData';
+import ProgressBar from './ProgressBar';
 
 export default function Front(props) {
-  const { currentCard, onClick } = props;
+  const { currentCard, onClick, progress } = props;
   const { state } = useApplicationData();
 
   return (
@@ -35,6 +36,7 @@ export default function Front(props) {
             </Button>}
           </CardActions>
         </Card>
+        <ProgressBar progress={progress}/>
       </Grid>
     </Grid>
   );

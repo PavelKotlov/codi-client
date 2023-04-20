@@ -7,6 +7,8 @@ import QuizComplete from "../components/quiz/QuizComplete";
 import { useState, useEffect } from "react";
 import { Box, createTheme, ThemeProvider } from "@mui/material";
 import "../components/quiz/quiz.css";
+import { topicContext } from '../providers/TopicProvider';
+import { useContext } from "react";
 
 export default function Quiz(props) {
   const [index, setIndex] = useState(0);
@@ -14,8 +16,14 @@ export default function Quiz(props) {
   const [cardsQueue, setCardsQueue] = useState([]);
   const [currentCard, setCurrentCard] = useState();
   const [mode, setMode] = useState("FRONT");
+  const [progress, setProgress] = useState(0);
   const { state, addReview, getFlashcards } = useApplicationData();
+  // const { state } = useContext(topicContext)
 
+  //TODO: use state.quizCards as initial state of cardsQueue
+  // setCardsQueue(state.quizCards);
+  // setCurrentCard(cardsQueue[index]);
+  
   useEffect(() => {
     getFlashcards(state.topic.id).then((data) => {
       const filteredCards = getFlashcardsForQuiz(state, data);
@@ -75,6 +83,9 @@ export default function Quiz(props) {
         setMode("COMPLETE");
       }
       setCurrentCard(updatedQueue[nextIndex]);
+
+      //TODO: replace total cards by state.quizCards
+      setProgress((counter / 5) * 100);
       return nextIndex;
     });
 
@@ -92,17 +103,12 @@ export default function Quiz(props) {
   const codiTheme = createTheme({});
   return (
     <ThemeProvider theme={codiTheme}>
-      <Box className="front">
-        {currentCard && mode === "FRONT" && (
-          <Front currentCard={currentCard} onClick={() => setMode("BACK")} />
-        )}
-      </Box>
-      <Box className="back">
-        {currentCard && mode === "BACK" && (
-          <Back currentCard={currentCard} handleClick={handleClick} />
-        )}
-      </Box>
-      {/* </Box> */}
+      {currentCard && mode === "FRONT" && (
+        <Front currentCard={currentCard} progress ={progress} onClick={() => setMode("BACK")} />
+      )}        
+      {currentCard && mode === "BACK" && (
+        <Back currentCard={currentCard} progress ={progress} handleClick={handleClick} />
+      )}
       {mode === "COMPLETE" && <QuizComplete />}
     </ThemeProvider>
   );
