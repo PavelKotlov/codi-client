@@ -1,4 +1,4 @@
-const futureDate = require("../local-date/futureDate");
+const futureDate = require("../date/futureDate");
 
 const responseLearning = (selection, cardObject) => {
   const today = new Date();

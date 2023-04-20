@@ -1,0 +1,80 @@
+body {
+  background-color: #E9F5FF;
+}
+
+.MuiCard-root{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-wrap: break-word;
+}
+
+.card-box__button {
+  background-color: #d84177;
+  border: #d84177;
+}
+
+.arrow-icon {
+  padding-left: 5px;
+}
+
+.answer-button {
+  color: #7878EA;
+  background-color: #a8c4e5;
+  position: absolute;
+  bottom: 1;
+  right: 1;
+  border-radius: 4px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.answer-button span {
+  cursor: pointer;
+  position: relative;
+  transition: 0.5s;
+}
+
+.answer-button:hover span {
+  padding-right: 10px;
+}
+
+.card-box__front {
+  overflow-wrap: break-word;
+}
+
+.box-container {
+	width:700px;
+	min-height:450px;
+	margin:50px auto;
+  padding: 1rem;
+	position:relative;
+	transform-style: preserve-3d;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  transition:all .6s ease-in-out;
+  overflow-wrap: break-word;
+  border: #d84177 solid 0.5px;
+}
+
+.topic {
+  background-color: #d84177;
+  border: #d84177;
+  justify-content: center;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1rem;
+}
+
+.card-box__front {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-box__button {
+  background-color: #d84177;
+}
+
+
+
+

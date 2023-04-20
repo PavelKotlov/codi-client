@@ -28,12 +28,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/topics/:topic_id/dashboard/quiz",
+    path: "/topics/:topic_id/quiz",
     element: <Quiz />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/topics/:topic_id/dashboard/cards",
+    path: "/topics/:topic_id/cards",
     element: <Cards />,
     errorElement: <ErrorPage />,
   },
