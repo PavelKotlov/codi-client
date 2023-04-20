@@ -1,14 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import * as serviceWorker from './serviceWorker';
-import './index.css';
-import App from './routes/App';
-import Dashboard from './pages/Dashboard';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import * as serviceWorker from "./serviceWorker";
+import "./index.css";
+import App from "./routes/App";
+import Cards from "./pages/cards";
+import Dashboard from "./pages/dashboard";
+import Quiz from "./pages/quiz";
+import Topics from "./pages/topics";
+import ErrorPage from "./error-page";
+import { ThemeProvider } from "@mui/material";
 import TopicProvider from './providers/TopicProvider';
-import ErrorPage from './error-page';
+import codiTheme from "./codi-theme";
 
 const router = createBrowserRouter([
+  { path: "/", element: <App />, errorElement: <ErrorPage /> },
+  { path: "/topics", element: <Topics />, errorElement: <ErrorPage /> },
   {
     path: '/topics/:topic_id/dashboard',
     element: (
@@ -20,11 +27,23 @@ const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/topics/:topic_id/dashboard/quiz",
+    element: <Quiz />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/topics/:topic_id/dashboard/cards",
+    element: <Cards />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={codiTheme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
