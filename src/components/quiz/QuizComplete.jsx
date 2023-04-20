@@ -1,5 +1,8 @@
+import { Grid, Typography } from "@mui/material";
 import React from "react";
 
 export default function QuizComplete (props) {
-  return ( <><h1>Congrats!</h1></> );
+  return (
+    <Grid><Typography gutterBottom variant="h4" color="textSecondary" className="complete-message">Congratulations!</Typography></Grid>
+  );
 }
