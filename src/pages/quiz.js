@@ -1,40 +1,23 @@
 import React from "react";
-import { getFlashcardsForQuiz } from "../helpers/selectors";
-import useApplicationData from "../hooks/useApplicationData";
 import Front from "../components/quiz/Front";
 import Back from "../components/quiz/Back";
 import QuizComplete from "../components/quiz/QuizComplete";
-import { useState, useEffect } from "react";
-import { Box, createTheme, Grid, ThemeProvider } from "@mui/material";
+import { useState } from "react";
+import { createTheme, Grid, Link, ThemeProvider } from "@mui/material";
 import "../components/quiz/quiz.css";
 import { topicContext } from "../providers/TopicProvider";
 import { useContext } from "react";
-import ProgressBar from "../components/quiz/ProgressBar";
+import NavMenu from "../components/controllers/menu";
+import CloseButton from "../components/controllers/closeButton";
 
 export default function Quiz(props) {
+  const { topic, quizCards, addReview } = useContext(topicContext)
   const [index, setIndex] = useState(0);
   const [counter, setCounter] = useState(1);
-  const [cardsQueue, setCardsQueue] = useState([]);
-  const [currentCard, setCurrentCard] = useState();
+  const [cardsQueue, setCardsQueue] = useState(quizCards);
+  const [currentCard, setCurrentCard] = useState(quizCards[0]);
   const [mode, setMode] = useState("FRONT");
   const [progress, setProgress] = useState(0);
-  const { state, addReview, getFlashcards } = useApplicationData();
-  // const { state } = useContext(topicContext)
-
-  //TODO: use state.quizCards as initial state of cardsQueue
-  // setCardsQueue(state.quizCards);
-  // setCurrentCard(cardsQueue[index]);
-
-  useEffect(() => {
-    getFlashcards(state.topic.id).then((data) => {
-      const filteredCards = getFlashcardsForQuiz(state, data);
-      setCardsQueue((prev) => {
-        const newCardsQueue = [...filteredCards];
-        setCurrentCard(newCardsQueue[index]);
-        return newCardsQueue;
-      });
-    });
-  }, []);
 
   const updateProgress = (cardsQueue, max_cards) => {
     if (cardsQueue.length < max_cards) {
@@ -47,7 +30,7 @@ export default function Quiz(props) {
   const updateCardsQueue = async (card, response_type) => {
     const updatedCardsQueue = [...cardsQueue];
 
-    if (state.topic.max_cards > cardsQueue.length) {
+    if (topic.max_cards > cardsQueue.length) {
       if (response_type === "EASY") {
         updatedCardsQueue.splice(index, 1);
       }
@@ -60,7 +43,7 @@ export default function Quiz(props) {
     }
 
     try {
-      const updatedCard = await addReview(state.topic, card, response_type);
+      const updatedCard = await addReview(topic, card, response_type);
       const indexToUpdate = updatedCardsQueue.findIndex((card) => {
         return card.id === updatedCard.id;
       });
@@ -68,7 +51,7 @@ export default function Quiz(props) {
         updatedCardsQueue[indexToUpdate] = updatedCard;
       }
       setCardsQueue(updatedCardsQueue);
-      setProgress(updateProgress(cardsQueue, state.topic.max_cards));
+      setProgress(updateProgress(cardsQueue, topic.max_cards));
     } catch (error) {
       console.log(error);
     }
@@ -92,7 +75,7 @@ export default function Quiz(props) {
 
     if (
       mode !== "COMPLETE" &&
-      counter < state.topic.max_cards &&
+      counter < topic.max_cards &&
       updatedQueue.length >= 1
     ) {
       setMode("FRONT");
@@ -100,10 +83,12 @@ export default function Quiz(props) {
       setMode("COMPLETE");
     }
   };
-
+  
   const codiTheme = createTheme({});
   return (
     <ThemeProvider theme={codiTheme}>
+      <NavMenu />
+      <CloseButton link={`/topics/${topic.id}/dashboard`}/>
       <Grid container direction="column" alignItems="center" >
         <Grid>
         {currentCard && mode === "FRONT" && (

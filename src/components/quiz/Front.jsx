@@ -11,16 +11,17 @@ import "./quiz.css";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
-import useApplicationData from "../../hooks/useApplicationData";
 import ProgressBar from "./ProgressBar";
 import QuizIcon from "@mui/icons-material/Quiz";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CodeEditor from "./CodeEditor";
+import { useContext } from "react";
 import { useState } from "react";
+import { topicContext } from "../../providers/TopicProvider";
 
 export default function Front(props) {
   const { currentCard, onClick, progress } = props;
-  const { state } = useApplicationData();
+  const { topic } = useContext(topicContext);
   const [viewEditor, setViewEditor] = useState(false);
 
   return (
@@ -44,7 +45,7 @@ export default function Front(props) {
               className="topic"
               style={{ display: "flex", justifyContent: "space-between" }}
             >
-              {state.topic.name}
+              {topic.name}
               <LibraryBooksIcon color="inherit" fontSize="large" />
             </Typography>
           </CardContent>
@@ -57,7 +58,7 @@ export default function Front(props) {
               className="topic"
               style={{ display: "flex", justifyContent: "space-between" }}
             >
-              {state.topic.name}
+              {topic.name}
               <QuizIcon color="inherit" fontSize="large" />
             </Typography>
           </CardContent>
@@ -109,8 +110,8 @@ export default function Front(props) {
           </Button>
         </CardActions>
       </Card>
-      <Grid item sx={{ width: "700px", marginTop: "-30px"}}>
-          <ProgressBar progress={progress} />
+      <Grid item sx={{ width: "700px", marginTop: "-30px" }}>
+        <ProgressBar progress={progress} />
       </Grid>
     </Grid>
   );

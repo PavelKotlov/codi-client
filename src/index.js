@@ -27,7 +27,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/topics/:topic_id/quiz',
-    element: <Quiz />,
+    element: (
+      <TopicProvider>
+        <Quiz />
+      </TopicProvider>
+    ),
     errorElement: <ErrorPage />,
   },
   {

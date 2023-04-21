@@ -5,6 +5,7 @@ import GradeIcon from '@mui/icons-material/Grade';
 import FunctionsIcon from '@mui/icons-material/Functions';
 import SchoolIcon from '@mui/icons-material/School';
 import { useParams } from 'react-router-dom';
+import sra from '../helpers/sra/sra';
 
 export const topicContext = createContext();
 
@@ -70,8 +71,35 @@ const TopicProvider = function TopicProvider(props) {
     });
   }, []);
 
+  const addReview = (topic, card, selection) => {
+    const updatedCard = sra(selection, card);
+
+    return axios
+      .patch(`/api/topics/${topic.id}/cards/${card.id}`, {
+        review: { response: selection },
+        status: updatedCard.status,
+        ease_factor: updatedCard.ease_factor,
+        interval: updatedCard.interval,
+        due_at: updatedCard.due_at,
+      })
+      .then((res) => {
+        setState({
+          ...state,
+          cards: state.cards.map((card) =>
+            card.id === res.data.id ? res.data : card
+          ),
+        });
+        return res.data;
+      })
+      .catch((e) => {
+        console.log("error", e);
+      });
+  };
+
+  const value = { ...state, addReview};
+
   return (
-    <topicContext.Provider value={state}>
+    <topicContext.Provider value={value}>
       {props.children}
     </topicContext.Provider>
   );

@@ -3,13 +3,13 @@ import React from 'react';
 import Title from '../components/dashboard/Title';
 import Stats from '../components/dashboard/Stats';
 import Buttons from '../components/dashboard/Buttons';
-import { useLocation } from 'react-router-dom';
 import NavMenu from '../components/controllers/menu';
 import CloseButton from '../components/controllers/closeButton';
+import { useContext } from 'react';
+import { topicContext } from '../providers/TopicProvider';
 
 const Dashboard = () => {
-  const location = useLocation();
-  const { name } = location.state;
+  const { topic } = useContext(topicContext)
 
   return (
     <>
@@ -32,7 +32,7 @@ const Dashboard = () => {
             direction='column'
             rowSpacing={7}>
             <Grid item>
-              <Title name={name} />
+              <Title name={topic.name} />
             </Grid>
             <Grid item>
               <Buttons />
