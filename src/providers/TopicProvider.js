@@ -32,7 +32,7 @@ const TopicProvider = function TopicProvider(props) {
       setState((prev) => ({
         ...prev,
         loading: false,
-        topic: all[1].data.topic,
+        topic: all[0].data.topic,
         cards: all[1].data.cards,
         quizCards: all[2].data.cards,
         reviews: all[0].data.reviews,
@@ -92,11 +92,11 @@ const TopicProvider = function TopicProvider(props) {
         return res.data;
       })
       .catch((e) => {
-        console.log("error", e);
+        console.log('error', e);
       });
   };
 
-  const value = { ...state, addReview};
+  const value = { ...state, addReview };
 
   return (
     <topicContext.Provider value={value}>
