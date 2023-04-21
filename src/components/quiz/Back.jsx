@@ -9,9 +9,9 @@ import {
   Divider,
   Box,
 } from "@mui/material";
-import ProgressBar from "./ProgressBar";
 import "./quiz.css";
 import { CodeBlock } from "react-code-blocks";
+import ProgressBar from "./ProgressBar";
 
 export default function Back(props) {
   const { currentCard, handleClick, progress } = props;
@@ -106,7 +106,9 @@ export default function Back(props) {
           </Grid>
         </CardActions>
       </Card>
-      <ProgressBar progress={progress} />
+      <Grid item sx={{ width: "700px", marginTop: "-20px"}}>
+        <ProgressBar progress={progress} />
+      </Grid>
     </Grid>
   );
 }

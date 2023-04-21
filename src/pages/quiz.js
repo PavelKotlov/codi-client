@@ -5,10 +5,11 @@ import Front from "../components/quiz/Front";
 import Back from "../components/quiz/Back";
 import QuizComplete from "../components/quiz/QuizComplete";
 import { useState, useEffect } from "react";
-import { Box, createTheme, ThemeProvider } from "@mui/material";
+import { Box, createTheme, Grid, ThemeProvider } from "@mui/material";
 import "../components/quiz/quiz.css";
 import { topicContext } from "../providers/TopicProvider";
 import { useContext } from "react";
+import ProgressBar from "../components/quiz/ProgressBar";
 
 export default function Quiz(props) {
   const [index, setIndex] = useState(0);
@@ -41,7 +42,7 @@ export default function Quiz(props) {
     } else {
       return Math.round((counter / cardsQueue.length) * 100);
     }
-  }
+  };
 
   const updateCardsQueue = async (card, response_type) => {
     const updatedCardsQueue = [...cardsQueue];
@@ -67,10 +68,7 @@ export default function Quiz(props) {
         updatedCardsQueue[indexToUpdate] = updatedCard;
       }
       setCardsQueue(updatedCardsQueue);
-
-      //TODO: replace total cards by state.quizCards
       setProgress(updateProgress(cardsQueue, state.topic.max_cards));
-      console.log('cardsQueue', cardsQueue, 'progress', progress, 'counter', counter);
     } catch (error) {
       console.log(error);
     }
@@ -90,7 +88,6 @@ export default function Quiz(props) {
       }
       setCurrentCard(updatedQueue[nextIndex]);
       return nextIndex;
-
     });
 
     if (
@@ -107,20 +104,25 @@ export default function Quiz(props) {
   const codiTheme = createTheme({});
   return (
     <ThemeProvider theme={codiTheme}>
-      {currentCard && mode === "FRONT" && (
-        <Front
-          currentCard={currentCard}
-          progress={progress}
-          onClick={() => setMode("BACK")}
-        />
-      )}
-      {currentCard && mode === "BACK" && (
-        <Back
-          currentCard={currentCard}
-          progress={progress}
-          handleClick={handleClick}
-        />
-      )}
+      <Grid container direction="column" alignItems="center" >
+        <Grid>
+        {currentCard && mode === "FRONT" && (
+          <Front
+            currentCard={currentCard}
+            progress={progress}
+            onClick={() => setMode("BACK")}
+          />
+        )}
+        {currentCard && mode === "BACK" && (
+          <Back
+            currentCard={currentCard}
+            progress={progress}
+            handleClick={handleClick}
+          />
+        )}
+        </Grid>
+
+      </Grid>
       {mode === "COMPLETE" && <QuizComplete />}
     </ThemeProvider>
   );

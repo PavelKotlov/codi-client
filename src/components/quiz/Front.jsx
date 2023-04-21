@@ -6,10 +6,11 @@ import {
   Typography,
   CardContent,
   CardActions,
-  Box,
 } from "@mui/material";
 import "./quiz.css";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import useApplicationData from "../../hooks/useApplicationData";
 import ProgressBar from "./ProgressBar";
 import QuizIcon from "@mui/icons-material/Quiz";
@@ -75,26 +76,41 @@ export default function Front(props) {
         <Grid container direction="column" alignItems="center" justify="center">
           {viewEditor && <CodeEditor />}
         </Grid>
-        <CardActions>
-          {currentCard.type === "CONCEPT" && (
+
+        <CardActions
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          {currentCard.type === "CHALLENGE" && viewEditor && (
             <Button
               className="answer-button"
               size="small"
               onClick={() => setViewEditor(!viewEditor)}
             >
               Code Editor
-              <KeyboardDoubleArrowRightIcon className="arrow-icon" />
+              <KeyboardDoubleArrowUpIcon className="arrow-icon" />
             </Button>
           )}
+          {currentCard.type === "CHALLENGE" && !viewEditor && (
+            <Button
+              className="answer-button"
+              size="small"
+              onClick={() => setViewEditor(!viewEditor)}
+            >
+              Code Editor
+              <KeyboardDoubleArrowDownIcon className="arrow-icon" />
+            </Button>
+          )}
+          <Grid
+            style={{ display: "flex", justifyContent: "flex-end !important" }}
+          ></Grid>
           <Button className="answer-button" size="small" onClick={onClick}>
             View Answer
             <KeyboardDoubleArrowRightIcon className="arrow-icon" />
           </Button>
         </CardActions>
       </Card>
-
-      <Grid sx={{ width: "700px" }}>
-        <ProgressBar color="secondary" progress={progress} />
+      <Grid item sx={{ width: "700px", marginTop: "-30px"}}>
+          <ProgressBar progress={progress} />
       </Grid>
     </Grid>
   );
