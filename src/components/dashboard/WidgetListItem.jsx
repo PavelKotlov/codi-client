@@ -11,6 +11,7 @@ const WidgetListItem = ({ text, number, icon: Icon }) => {
           color: 'white',
           p: 0.9,
           height: '90%',
+          borderRadius: '15%',
         }}>
         <Icon sx={{ color: '#FFD22D' }} />
         <Typography variant='h3' component='h1' align='center'>
