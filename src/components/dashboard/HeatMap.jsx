@@ -21,7 +21,7 @@ const HeatMap = () => {
   const maxCount = Math.max(...counts);
 
   return (
-    <Card>
+    <Card sx={{ borderRadius: '25px' }}>
       <CardContent>
         <CalendarHeatmap
           startDate={oneDayAgoFormatted}

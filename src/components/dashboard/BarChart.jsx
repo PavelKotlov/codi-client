@@ -57,7 +57,14 @@ const BarChart = ({ onClick }) => {
   };
 
   return (
-    <Card sx={{ bgcolor: '#fff', display: 'flex' }}>
+    <Card
+      sx={{
+        bgcolor: '#fff',
+        display: 'flex',
+        borderRadius: '25px',
+        width: '90%',
+        margin: '0 auto',
+      }}>
       <Stack direction={'row'}>
         <IconButton sx={{ borderRadius: 0 }} onClick={onClick}>
           <ArrowBackIosNewIcon />
