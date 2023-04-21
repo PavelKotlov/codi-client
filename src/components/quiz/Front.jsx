@@ -6,6 +6,7 @@ import {
   Typography,
   CardContent,
   CardActions,
+  Box,
 } from "@mui/material";
 import "./quiz.css";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
@@ -13,10 +14,13 @@ import useApplicationData from "../../hooks/useApplicationData";
 import ProgressBar from "./ProgressBar";
 import QuizIcon from "@mui/icons-material/Quiz";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import CodeEditor from "./CodeEditor";
+import { useState } from "react";
 
 export default function Front(props) {
   const { currentCard, onClick, progress } = props;
   const { state } = useApplicationData();
+  const [viewEditor, setViewEditor] = useState(false);
 
   return (
     <Grid
@@ -68,8 +72,20 @@ export default function Front(props) {
             {currentCard.front}
           </Typography>
         </CardContent>
-
+        <Grid container direction="column" alignItems="center" justify="center">
+          {viewEditor && <CodeEditor />}
+        </Grid>
         <CardActions>
+          {currentCard.type === "CONCEPT" && (
+            <Button
+              className="answer-button"
+              size="small"
+              onClick={() => setViewEditor(!viewEditor)}
+            >
+              Code Editor
+              <KeyboardDoubleArrowRightIcon className="arrow-icon" />
+            </Button>
+          )}
           <Button className="answer-button" size="small" onClick={onClick}>
             View Answer
             <KeyboardDoubleArrowRightIcon className="arrow-icon" />
