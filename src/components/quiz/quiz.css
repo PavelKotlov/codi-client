@@ -9,38 +9,23 @@ body {
   overflow-wrap: break-word;
 }
 
+.MuiLinearProgress-bar {
+  color: #d84177;
+}
+
 .card-box__button {
   background-color: #d84177;
   border: #d84177;
 }
 
+.answer-button:hover .arrow-icon {
+  transform: scale(1.2);
+}
+
 .arrow-icon {
+  margin-right: 8px;
   padding-left: 5px;
-}
-
-.answer-button {
-  color: #7878EA;
-  background-color: #a8c4e5;
-  position: absolute;
-  bottom: 1;
-  right: 1;
-  border-radius: 4px;
-  transition: all 0.5s;
-  cursor: pointer;
-}
-
-.answer-button span {
-  cursor: pointer;
-  position: relative;
-  transition: 0.5s;
-}
-
-.answer-button:hover span {
-  padding-right: 10px;
-}
-
-.card-box__front {
-  overflow-wrap: break-word;
+  transition: transform 0.2s ease-in-out;
 }
 
 .box-container {
@@ -53,7 +38,7 @@ body {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
   transition:all .6s ease-in-out;
   overflow-wrap: break-word;
-  border: #d84177 solid 0.5px;
+  border: #d84177 solid 1px;
 }
 
 .topic {
@@ -69,12 +54,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-wrap: break-word;
 }
-
-.card-box__button {
-  background-color: #d84177;
-}
-
 
 
 
