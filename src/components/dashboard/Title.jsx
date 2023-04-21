@@ -9,7 +9,6 @@ const Title = ({ name }) => {
       sx={{
         color: '#271D30',
         fontWeight: 'bold',
-        textTransform: 'uppercase',
       }}
       align='center'>
       {name}
