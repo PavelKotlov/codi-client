@@ -19,7 +19,6 @@ export default function useApplicationData() {
  
   /* get flashcards for a given topic */
   const getFlashcards = (id) => {
-    console.log('fetching cards')
     return axios
       .get(`/api/topics/${id}/cards`)
       .then((res) => {

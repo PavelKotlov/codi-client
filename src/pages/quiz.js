@@ -7,7 +7,7 @@ import QuizComplete from "../components/quiz/QuizComplete";
 import { useState, useEffect } from "react";
 import { Box, createTheme, ThemeProvider } from "@mui/material";
 import "../components/quiz/quiz.css";
-import { topicContext } from '../providers/TopicProvider';
+import { topicContext } from "../providers/TopicProvider";
 import { useContext } from "react";
 
 export default function Quiz(props) {
@@ -23,23 +23,25 @@ export default function Quiz(props) {
   //TODO: use state.quizCards as initial state of cardsQueue
   // setCardsQueue(state.quizCards);
   // setCurrentCard(cardsQueue[index]);
-  
+
   useEffect(() => {
     getFlashcards(state.topic.id).then((data) => {
       const filteredCards = getFlashcardsForQuiz(state, data);
       setCardsQueue((prev) => {
-        const newCardsQueue = [
-          ...prev,
-          ...filteredCards.filter((card) => !prev.includes(card)),
-        ];
-        const cardsQueue = newCardsQueue.filter(
-          (card) => !card.due_at || Date.parse(card.due_at) <= Date.now()
-        );
-        setCurrentCard(cardsQueue[index]);
-        return cardsQueue;
+        const newCardsQueue = [...filteredCards];
+        setCurrentCard(newCardsQueue[index]);
+        return newCardsQueue;
       });
     });
   }, []);
+
+  const updateProgress = (cardsQueue, max_cards) => {
+    if (cardsQueue.length < max_cards) {
+      return Math.round((counter / max_cards) * 100);
+    } else {
+      return Math.round((counter / cardsQueue.length) * 100);
+    }
+  }
 
   const updateCardsQueue = async (card, response_type) => {
     const updatedCardsQueue = [...cardsQueue];
@@ -65,6 +67,10 @@ export default function Quiz(props) {
         updatedCardsQueue[indexToUpdate] = updatedCard;
       }
       setCardsQueue(updatedCardsQueue);
+
+      //TODO: replace total cards by state.quizCards
+      setProgress(updateProgress(cardsQueue, state.topic.max_cards));
+      console.log('cardsQueue', cardsQueue, 'progress', progress, 'counter', counter);
     } catch (error) {
       console.log(error);
     }
@@ -83,10 +89,8 @@ export default function Quiz(props) {
         setMode("COMPLETE");
       }
       setCurrentCard(updatedQueue[nextIndex]);
-
-      //TODO: replace total cards by state.quizCards
-      setProgress((counter / 5) * 100);
       return nextIndex;
+
     });
 
     if (
@@ -104,10 +108,18 @@ export default function Quiz(props) {
   return (
     <ThemeProvider theme={codiTheme}>
       {currentCard && mode === "FRONT" && (
-        <Front currentCard={currentCard} progress ={progress} onClick={() => setMode("BACK")} />
-      )}        
+        <Front
+          currentCard={currentCard}
+          progress={progress}
+          onClick={() => setMode("BACK")}
+        />
+      )}
       {currentCard && mode === "BACK" && (
-        <Back currentCard={currentCard} progress ={progress} handleClick={handleClick} />
+        <Back
+          currentCard={currentCard}
+          progress={progress}
+          handleClick={handleClick}
+        />
       )}
       {mode === "COMPLETE" && <QuizComplete />}
     </ThemeProvider>
