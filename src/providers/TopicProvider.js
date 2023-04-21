@@ -36,7 +36,7 @@ const TopicProvider = function TopicProvider(props) {
         cards: all[1].data.cards,
         quizCards: all[2].data.cards,
         reviews: all[0].data.reviews,
-        quizCardsCount: all[2].data.length,
+        quizCardsCount: all[2].data.cards.length,
         ease: all[0].data.ease,
         maturityPercentage: Math.ceil(
           all[0].data.cardsStats.mature / all[0].data.cardsStats.total
