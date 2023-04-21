@@ -23,6 +23,7 @@
     "echarts-for-react": "^3.0.2",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
+    "react-ace": "^10.1.0",
     "react-calendar-heatmap": "^1.9.0",
     "react-code-blocks": "^0.0.9-0",
     "react-dom": "^18.2.0",
