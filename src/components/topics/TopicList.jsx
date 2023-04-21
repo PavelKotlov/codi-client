@@ -7,6 +7,8 @@ import { Search } from '@mui/icons-material';
 const TopicList = ({ topics }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
+  // If searchQuery is empty, then the includes() method will return true for every topic's name property,
+  // because an empty string is included in every string.
   const filteredTopics = topics.filter((topic) =>
     topic.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -42,6 +44,7 @@ const TopicList = ({ topics }) => {
           onInputChange={(event, newInputValue) => {
             setSearchQuery(newInputValue);
           }}
+          clearOnBlur={false}
           renderInput={(params) => (
             <TextField
               {...params}

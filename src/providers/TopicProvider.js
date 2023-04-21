@@ -4,10 +4,15 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import GradeIcon from '@mui/icons-material/Grade';
 import FunctionsIcon from '@mui/icons-material/Functions';
 import SchoolIcon from '@mui/icons-material/School';
+import { useParams } from 'react-router-dom';
+
 export const topicContext = createContext();
 
 const TopicProvider = function TopicProvider(props) {
+  const { topic_id } = useParams();
   const [state, setState] = useState({
+    topic_id,
+    topic: {},
     loading: true,
     cards: [],
     quizCards: [],
@@ -19,15 +24,16 @@ const TopicProvider = function TopicProvider(props) {
 
   useEffect(() => {
     Promise.all([
-      axios.get(`/api/topics/${props.id}/stats`),
-      axios.get(`/api/topics/${props.id}/cards`),
-      axios.get(`/api/topics/${props.id}/cards/quiz`),
+      axios.get(`/api/topics/${topic_id}/stats`),
+      axios.get(`/api/topics/${topic_id}/cards`),
+      axios.get(`/api/topics/${topic_id}/cards/quiz`),
     ]).then((all) => {
       setState((prev) => ({
         ...prev,
         loading: false,
-        cards: all[1].data,
-        quizCards: all[2].data,
+        topic: all[1].data.topic,
+        cards: all[1].data.cards,
+        quizCards: all[2].data.cards,
         reviews: all[0].data.reviews,
         quizCardsCount: all[2].data.length,
         ease: all[0].data.ease,
@@ -64,9 +70,8 @@ const TopicProvider = function TopicProvider(props) {
     });
   }, []);
 
-  const value = { ...state, name: props.name };
   return (
-    <topicContext.Provider value={value}>
+    <topicContext.Provider value={state}>
       {props.children}
     </topicContext.Provider>
   );
