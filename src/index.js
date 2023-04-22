@@ -1,23 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import * as serviceWorker from './serviceWorker';
-import './index.css';
-import App from './routes/App';
-import Cards from './pages/cards';
-import Dashboard from './pages/dashboard';
-import Quiz from './pages/quiz';
-import Topics from './pages/topics';
-import ErrorPage from './error-page';
-import { ThemeProvider } from '@mui/material';
-import TopicProvider from './providers/TopicProvider';
-import codiTheme from './codi-theme';
+import React from "react";
+import ReactDOM from "react-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import * as serviceWorker from "./serviceWorker";
+import "./index.css";
+import App from "./routes/App";
+import Cards from "./pages/cards";
+import Dashboard from "./pages/dashboard";
+import Quiz from "./pages/quiz";
+import Topics from "./pages/topics";
+import ErrorPage from "./error-page";
+import { ThemeProvider } from "@mui/material";
+import TopicProvider from "./providers/TopicProvider";
+import codiTheme from "./codi-theme";
 
 const router = createBrowserRouter([
-  { path: '/', element: <App />, errorElement: <ErrorPage /> },
-  { path: '/topics', element: <Topics />, errorElement: <ErrorPage /> },
+  { path: "/", element: <App />, errorElement: <ErrorPage /> },
+  { path: "/topics", element: <Topics />, errorElement: <ErrorPage /> },
   {
-    path: '/topics/:topic_id/dashboard',
+    path: "/topics/:topic_id/dashboard",
     element: (
       <TopicProvider>
         <Dashboard />
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: '/topics/:topic_id/quiz',
+    path: "/topics/:topic_id/quiz",
     element: (
       <TopicProvider>
         <Quiz />
@@ -35,13 +35,17 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: '/topics/:topic_id/cards',
-    element: <Cards />,
+    path: "/topics/:topic_id/cards",
+    element: (
+      <TopicProvider>
+        <Cards />
+      </TopicProvider>
+    ),
     errorElement: <ErrorPage />,
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={codiTheme}>
       <RouterProvider router={router} />

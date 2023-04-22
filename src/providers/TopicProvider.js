@@ -1,11 +1,11 @@
-import { useState, useEffect, createContext } from 'react';
-import axios from 'axios';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
-import GradeIcon from '@mui/icons-material/Grade';
-import FunctionsIcon from '@mui/icons-material/Functions';
-import SchoolIcon from '@mui/icons-material/School';
-import { useParams } from 'react-router-dom';
-import sra from '../helpers/sra/sra';
+import { useState, useEffect, createContext } from "react";
+import axios from "axios";
+import BorderColorIcon from "@mui/icons-material/BorderColor";
+import GradeIcon from "@mui/icons-material/Grade";
+import FunctionsIcon from "@mui/icons-material/Functions";
+import SchoolIcon from "@mui/icons-material/School";
+import { useParams } from "react-router-dom";
+import sra from "../helpers/sra/sra";
 
 export const topicContext = createContext();
 
@@ -44,25 +44,25 @@ const TopicProvider = function TopicProvider(props) {
         widgets: [
           {
             id: 1,
-            text: 'New',
+            text: "New",
             number: all[0].data.cardsStats.new,
             icon: GradeIcon,
           },
           {
             id: 2,
-            text: 'Learning',
+            text: "Learning",
             number: all[0].data.cardsStats.learning,
             icon: BorderColorIcon,
           },
           {
             id: 3,
-            text: 'Graduated',
+            text: "Graduated",
             number: all[0].data.cardsStats.graduated,
             icon: SchoolIcon,
           },
           {
             id: 4,
-            text: 'Total',
+            text: "Total",
             number: all[0].data.cardsStats.total,
             icon: FunctionsIcon,
           },
@@ -92,11 +92,53 @@ const TopicProvider = function TopicProvider(props) {
         return res.data;
       })
       .catch((e) => {
-        console.log('error', e);
+        console.log("error", e);
       });
   };
 
-  const value = { ...state, addReview };
+  const editCard = async (card, updates) => {
+    const response = await axios.patch(
+      `/api/topics/${card.topicId}/cards/${card.id}`,
+      {
+        front: updates.front,
+        back: updates.back,
+        tags: updates.tags,
+      }
+    );
+
+    setState({
+      ...state,
+      cards: state.cards.map((card) =>
+        card.id === response.data.id ? response.data : card
+      ),
+    });
+  };
+
+  const addCard = async (card) => {
+    console.log("Here is the added card info", card);
+    const response = await axios.post(`/api/topics/${card.topicId}/cards`, {
+      front: card.front,
+      back: card.back,
+      type: card.type,
+      tags: card.tags,
+      note: card.note,
+      auto: card.auto,
+    });
+
+    if (Array.isArray(response.data)) {
+      setState({
+        ...state,
+        cards: [...state.cards, ...response.data],
+      });
+    } else {
+      setState({
+        ...state,
+        cards: [...state.cards, response.data],
+      });
+    }
+  };
+
+  const value = { ...state, addReview, editCard, addCard };
 
   return (
     <topicContext.Provider value={value}>
