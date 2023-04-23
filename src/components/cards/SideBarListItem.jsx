@@ -5,10 +5,20 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import QuizIcon from "@mui/icons-material/Quiz";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import { Tooltip, Typography } from "@mui/material";
+import { Badge, Tooltip, Typography } from "@mui/material";
 
 const SideBarListItem = (props) => {
   const { card, selectCardFunc } = props;
+
+  const isCreatedWithin = (card, time) => {
+    const now = Date.now();
+    const range = now - time;
+    const specificTime = new Date(card.created_at).getTime();
+    if (specificTime >= range && specificTime <= now) {
+      return true;
+    }
+    return false;
+  }
 
   return (
     <ListItem disablePadding>
@@ -21,6 +31,13 @@ const SideBarListItem = (props) => {
           <ListItemIcon>
             {card.type === "CONCEPT" ? <LibraryBooksIcon /> : <QuizIcon />}
           </ListItemIcon>
+          { isCreatedWithin(card, 30000) && (<ListItemIcon>
+            <Badge
+              badgeContent='new'
+              color="primary"
+              position='relative'>  
+            </Badge>
+          </ListItemIcon>)}
           <ListItemText
             primary={
               <React.Fragment>
