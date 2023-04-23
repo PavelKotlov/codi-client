@@ -5,6 +5,7 @@ import SidePanel from "../components/cards/SidePanel";
 import DefaultView from "../components/cards/DefaultView";
 import EditView from "../components/cards/views/EditView";
 import NewView from "../components/cards/views/NewView";
+import NavMenu from "../components/controllers/menu";
 
 const Cards = () => {
   const [view, setView] = useState("DEFAULT");
@@ -37,11 +38,13 @@ const Cards = () => {
         <SidePanel
           selectCardFunc={selectCardFunc}
           selectTypeFunc={selectTypeFunc}
+          currentCard={currentCard}
         />
       </Box>
 
       {/*Rendered views*/}
       <Box className="main-panel" sx={{ mx: 1, width: "70%" }}>
+        <NavMenu />
         {view === "DEFAULT" && <DefaultView />}
         {view === "NEW CONCEPT" && <NewView isConcept={true} />}
         {view === "NEW EXERCISE" && <NewView isConcept={false} />}
