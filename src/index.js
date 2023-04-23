@@ -10,6 +10,7 @@ import Quiz from "./pages/quiz";
 import Topics from "./pages/topics";
 import ErrorPage from "./error-page";
 import { ThemeProvider } from "@mui/material";
+import { Auth0Provider } from "@auth0/auth0-react";
 import TopicProvider from "./providers/TopicProvider";
 import codiTheme from "./codi-theme";
 
@@ -48,7 +49,15 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={codiTheme}>
-      <RouterProvider router={router} />
+      <Auth0Provider
+        domain="codi-app.us.auth0.com"
+        clientId="kUnewKRYTn8WKgrG1zJ7ADD9akcDAarQ"
+        authorizationParams={{
+          redirect_uri: window.location.origin
+        }}
+      >
+        <RouterProvider router={router} />
+      </Auth0Provider>,
     </ThemeProvider>
   </React.StrictMode>
 );
