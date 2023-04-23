@@ -9,11 +9,12 @@ import sra from "../helpers/sra/sra";
 
 export const topicContext = createContext();
 
+//TODO: Down the line topic provider needs to be renamed everywhere are DataProvider
 const TopicProvider = function TopicProvider(props) {
   const { topic_id } = useParams();
   const [state, setState] = useState({
-    topic_id,
     topic: {},
+    topics: [],
     loading: true,
     cards: [],
     quizCards: [],
@@ -69,7 +70,7 @@ const TopicProvider = function TopicProvider(props) {
         ],
       }));
     });
-  }, []);
+  }, [topic_id, state.cards]);
 
   const addReview = (topic, card, selection) => {
     const updatedCard = sra(selection, card);
@@ -138,7 +139,17 @@ const TopicProvider = function TopicProvider(props) {
     }
   };
 
-  const value = { ...state, addReview, editCard, addCard };
+  const deleteCard = async (card) => {
+    await axios.delete(`/api/topics/${card.topicId}/cards/${card.id}`);
+
+    const withoutCard = state.cards.filter((element) => element.id !== card.id);
+    setState({
+      ...state,
+      cards: [...withoutCard],
+    });
+  };
+
+  const value = { ...state, addReview, editCard, addCard, deleteCard };
 
   return (
     <topicContext.Provider value={value}>
@@ -146,4 +157,5 @@ const TopicProvider = function TopicProvider(props) {
     </topicContext.Provider>
   );
 };
+
 export default TopicProvider;
