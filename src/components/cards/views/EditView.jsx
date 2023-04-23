@@ -6,16 +6,17 @@ import {
   FormControlLabel,
   Grid,
   Stack,
-  Switch,
   TextField,
   Typography,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { topicContext } from "../../../providers/TopicProvider";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const EditView = (props) => {
   const { setView, selectedCard } = props;
-  const { editCard, addCard, topic_id } = useContext(topicContext);
+  const { editCard, addCard, deleteCard, topic } = useContext(topicContext);
 
   const [loading, setLoading] = useState(false);
   const [front, setFront] = useState("");
@@ -49,7 +50,7 @@ const EditView = (props) => {
       editCard(selectedCard, { front, back, chips })
         .then(() => {
           addCard({
-            topicId: topic_id,
+            topicId: topic.id,
             front: front,
             back: back,
             type: "CHALLENGE",
@@ -74,6 +75,19 @@ const EditView = (props) => {
           alert("Unable to save changes");
         });
     }
+  };
+
+  const handleDeleteClick = () => {
+    setLoading(true);
+    deleteCard(selectedCard)
+      .then(() => {
+        setLoading(false);
+        setView("DEFAULT");
+      })
+      .catch((err) => {
+        setLoading(false);
+        alert("Unable to delete card");
+      });
   };
 
   return (
@@ -142,20 +156,6 @@ const EditView = (props) => {
             sx={{ boxShadow: 4 }}
           />
         </Grid>
-        {/*Button Save*/}
-        <Grid item xs={12}>
-          {loading && <p>Loading</p>}
-          {!loading && (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSaveClick}
-              sx={{ boxShadow: 4 }}
-            >
-              Save
-            </Button>
-          )}
-        </Grid>
         {/*Checkbox Auto Generate Exercise*/}
         <Grid item xs={12}>
           {selectedCard.type === "CONCEPT" && (
@@ -171,6 +171,25 @@ const EditView = (props) => {
               }
               label="Auto Generate Exercise"
             />
+          )}
+        </Grid>
+        {/*Button Save*/}
+        <Grid item xs={12}>
+          {loading && <p>Loading</p>}
+          {!loading && (
+            <>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSaveClick}
+                sx={{ boxShadow: 4 }}
+              >
+                Save
+              </Button>
+              <IconButton aria-label="delete" color="error" size="large">
+                <DeleteIcon fontSize="inherit" onClick={handleDeleteClick} />
+              </IconButton>
+            </>
           )}
         </Grid>
       </Grid>
