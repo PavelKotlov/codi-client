@@ -21,7 +21,7 @@ const DefaultView = () => {
             gutterBottom
             sx={{ color: "lightslategray" }}
           >
-            Select card...
+            Select or Create Card...
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
