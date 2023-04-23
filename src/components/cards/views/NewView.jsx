@@ -15,7 +15,7 @@ import { topicContext } from "../../../providers/TopicProvider";
 
 const NewView = (props) => {
   const { isConcept } = props;
-  const { addCard, topic_id } = useContext(topicContext);
+  const { addCard, topic } = useContext(topicContext);
 
   const [loading, setLoading] = useState(false);
   const [auto, setAuto] = useState(false);
@@ -61,7 +61,7 @@ const NewView = (props) => {
 
     setLoading(true);
     addCard({
-      topicId: topic_id,
+      topicId: topic.id,
       front: front,
       back: back,
       type: isConcept ? "CONCEPT" : "CHALLENGE",
