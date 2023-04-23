@@ -3,11 +3,15 @@ import { Box } from "@mui/system";
 import React from "react";
 import "./quiz.css";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { topicContext } from "../../providers/TopicProvider";
 
-export default function QuizComplete (props) {
+export default function QuizComplete () {
+  const { topic } = useContext(topicContext);
+  
   let navigate = useNavigate(); 
   const routeChange = () =>{ 
-    let path = `/topics/:topic_id/dashboard`; 
+    let path = `/topics/${topic.id}/dashboard`; 
     navigate(path);
   }
 
