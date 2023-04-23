@@ -3,27 +3,25 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import {
-  Autocomplete,
   Breadcrumbs,
   Grid,
   IconButton,
   Stack,
-  TextField,
   Tooltip,
   Typography,
-  createFilterOptions,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import SwipeableTemporaryDrawer from "../filter-drawer/FilterDrawer";
 import { topicContext } from "../../providers/TopicProvider";
 import { useContext } from "react";
-import { useState } from "react";
 import SideBarList from "./SideBarList";
 import QuizIcon from "@mui/icons-material/Quiz";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import CloseIcon from "@mui/icons-material/Close";
+import NavMenu from "../controllers/menu";
 
 const SidePanel = (props) => {
-  const { cards } = useContext(topicContext);
+  const { topic } = useContext(topicContext);
   const { selectCardFunc, selectTypeFunc } = props;
 
   return (
@@ -33,10 +31,11 @@ const SidePanel = (props) => {
         {/*Side Panel nav bar (breadcrumbs, X button*/}
         <Grid container sx={{ p: 1 }}>
           <Grid item>
-            <IconButton aria-label="return to dashboard">
-              {/*TODO: change the topic_id the link will return to correct link*/}
-              <></>
-            </IconButton>
+            <Link to={`/topics/${topic.id}/dashboard`}>
+              <IconButton sx={{ p: 1 }} aria-label="close">
+                <CloseIcon />
+              </IconButton>
+            </Link>
           </Grid>
           <Grid
             item
@@ -47,7 +46,7 @@ const SidePanel = (props) => {
                 Topics
               </Link>
               <Link
-                to={"/topics/:topic_id/dashboard"}
+                to={`/topics/${topic.id}/dashboard`}
                 underline="hover"
                 color="inherit"
               >
@@ -60,8 +59,8 @@ const SidePanel = (props) => {
         {/*Search and filter*/}
         <Grid container>
           <Grid item xs={11}>
-            {/*TODO: need to return here and check see how to make the text inside take only a single line instead of multiple */}
-            <></>
+            {/*TODO: Make sure it brings back onle the correct card*/}
+            <NavMenu />
           </Grid>
           <Grid
             item
