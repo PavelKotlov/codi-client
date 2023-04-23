@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Front from "../components/quiz/Front";
 import Back from "../components/quiz/Back";
 import QuizComplete from "../components/quiz/QuizComplete";
@@ -10,21 +10,24 @@ import { useContext } from "react";
 import NavMenu from "../components/controllers/menu";
 import CloseButton from "../components/controllers/closeButton";
 
-export default function Quiz(props) {
-  const { topic, quizCards, addReview } = useContext(topicContext)
+export default function Quiz() {
+  const { topic, quizCards, addReview } = useContext(topicContext);
   const [index, setIndex] = useState(0);
   const [counter, setCounter] = useState(1);
+  const [initialQuizCards, setInitialQuizCards] = useState();
   const [cardsQueue, setCardsQueue] = useState(quizCards);
   const [currentCard, setCurrentCard] = useState(quizCards[0]);
   const [mode, setMode] = useState("FRONT");
   const [progress, setProgress] = useState(0);
 
-  const updateProgress = (cardsQueue, max_cards) => {
-    if (cardsQueue.length < max_cards) {
-      return Math.round((counter / max_cards) * 100);
-    } else {
-      return Math.round((counter / cardsQueue.length) * 100);
-    }
+  useEffect(() => {
+    const initialQuizCards = [...quizCards];
+    const quizTotal = initialQuizCards.length;
+    setInitialQuizCards(quizTotal);
+  }, []);
+
+  const updateProgress = (cardsQueue) => {
+    return Number(((initialQuizCards - cardsQueue.length) / initialQuizCards) * 100);
   };
 
   const updateCardsQueue = async (card, response_type) => {
@@ -51,7 +54,6 @@ export default function Quiz(props) {
         updatedCardsQueue[indexToUpdate] = updatedCard;
       }
       setCardsQueue(updatedCardsQueue);
-      setProgress(updateProgress(cardsQueue, topic.max_cards));
     } catch (error) {
       console.log(error);
     }
@@ -61,6 +63,7 @@ export default function Quiz(props) {
   const handleClick = async (response) => {
     const updatedQueue = await updateCardsQueue(currentCard, response);
     setCounter((prev) => prev + 1);
+    setProgress(updateProgress(updatedQueue));
     setIndex((prev) => {
       let nextIndex = prev + 1 >= updatedQueue.length ? 0 : prev + 1;
       while (!updatedQueue[nextIndex] && nextIndex > 0) {
@@ -83,30 +86,29 @@ export default function Quiz(props) {
       setMode("COMPLETE");
     }
   };
-  
+
   const codiTheme = createTheme({});
   return (
     <ThemeProvider theme={codiTheme}>
       <NavMenu />
-      <CloseButton link={`/topics/${topic.id}/dashboard`}/>
-      <Grid container direction="column" alignItems="center" >
+      <CloseButton link={`/topics/${topic.id}/dashboard`} />
+      <Grid container direction="column" alignItems="center">
         <Grid>
-        {currentCard && mode === "FRONT" && (
-          <Front
-            currentCard={currentCard}
-            progress={progress}
-            onClick={() => setMode("BACK")}
-          />
-        )}
-        {currentCard && mode === "BACK" && (
-          <Back
-            currentCard={currentCard}
-            progress={progress}
-            handleClick={handleClick}
-          />
-        )}
+          {currentCard && mode === "FRONT" && (
+            <Front
+              currentCard={currentCard}
+              progress={progress}
+              onClick={() => setMode("BACK")}
+            />
+          )}
+          {currentCard && mode === "BACK" && (
+            <Back
+              currentCard={currentCard}
+              progress={progress}
+              handleClick={handleClick}
+            />
+          )}
         </Grid>
-
       </Grid>
       {mode === "COMPLETE" && <QuizComplete />}
     </ThemeProvider>
