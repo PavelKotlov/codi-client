@@ -16,7 +16,7 @@ const Dashboard = () => {
   const onOpen = () => {
     setOpen(!open);
   };
-  
+
   return (
     <>
       <NavMenu />
@@ -52,13 +52,13 @@ const Dashboard = () => {
         </Grid>
       </Grid>
       <Backdrop
-          sx={{
-            color: "#fff",
-            zIndex: (theme) => theme.zIndex.drawer + 1,
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
-          }}
-          open={open}
-        >
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
+        }}
+        open={open}
+      >
         {/* <TopicForm onOpen={onOpen} state={state} setState={setState} topic_id={ topic.id} /> */}
       </Backdrop>
     </>

@@ -1,4 +1,4 @@
-import { Grid, Button, Badge, Typography } from "@mui/material";
+import { Grid, Button, Badge } from "@mui/material";
 import QuizIcon from "@mui/icons-material/Quiz";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import React from "react";
@@ -29,7 +29,7 @@ const Buttons = () => {
               variant="contained"
               startIcon={<QuizIcon />}
             >
-              {quizCardsCount > 0 ? 'Study Now' : 'No Cards to Study' }
+              {quizCardsCount > 0 ? "Study Now" : "No Cards to Study"}
             </Button>
           </Badge>
         </Link>

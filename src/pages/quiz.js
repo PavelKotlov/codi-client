@@ -3,7 +3,7 @@ import Front from "../components/quiz/Front";
 import Back from "../components/quiz/Back";
 import QuizComplete from "../components/quiz/QuizComplete";
 import { useState } from "react";
-import { createTheme, Grid, Link, ThemeProvider } from "@mui/material";
+import { createTheme, Grid, ThemeProvider } from "@mui/material";
 import "../components/quiz/quiz.css";
 import { topicContext } from "../providers/TopicProvider";
 import { useContext } from "react";
@@ -27,7 +27,9 @@ export default function Quiz() {
   }, []);
 
   const updateProgress = (cardsQueue) => {
-    return Number(((initialQuizCards - cardsQueue.length) / initialQuizCards) * 100);
+    return Number(
+      ((initialQuizCards - cardsQueue.length) / initialQuizCards) * 100
+    );
   };
 
   const updateCardsQueue = async (card, response_type) => {

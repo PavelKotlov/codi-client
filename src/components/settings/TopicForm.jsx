@@ -1,10 +1,12 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
+import { UserContext } from "../../providers/UserProvider";
 
 export default function TopicForm(props) {
+  const { token } = useContext(UserContext);
   const state = props.state;
   const setState = props.setState;
   const [name, setName] = useState("");
@@ -12,39 +14,60 @@ export default function TopicForm(props) {
   const [imageURL, setImageURL] = useState("");
 
   // Should this be an if there is id then run ???
-  useEffect(() => {
-    axios.get(`/api/topics/${props.topic_id}`).then((res) => {
-      setName(res.body.name)
-      setMaxCards(res.body.max_cards)
-      setImageURL(res.body.image_url)
-    });
-  }, [props.topic_id]);
+  // useEffect(async () => {
+  //   try {
+  //     console.log(Object.keys(props));
+  //     const response = await axios.get(`/api/topics/${props.topic_id}`);
+  //     console.log(response.body);
+  //     setName(response.body.name);
+  //     setMaxCards(response.body.max_cards);
+  //     setImageURL(response.body.image_url);
+  //   } catch (error) {
+  //     console.log(error.status);
+  //     console.log(error.message);
+  //   }
+  // }, [props.topic_id]);
 
   //TODO: update value for edit topic
   const handleSave = async () => {
     // If no id then add
     if (!props.topic_id) {
-      const response = await axios.post(`/api/topics`, {
-        name: name,
-        image_url: imageURL,
-        max_cards: maxCards,
-        //TODO: change to logged in user
-        userId: "f1bdf45e-1b1c-11ec-9621-0242ac130002",
-      });
+      const response = await axios.post(
+        `/api/topics`,
+        {
+          name: name,
+          image_url: imageURL,
+          max_cards: maxCards,
+          //TODO: change to logged in user
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setState({
         ...state,
         topics: [...state.topics, response.data],
       });
 
-      props.onOpen()
+      props.onOpen();
     } else {
       // If id then edit
-      const response = await axios.patch(`/api/topics/${props.topic_id}`, {
-        name: name,
-        image_url: imageURL,
-        max_cards: maxCards,
-      });
+      const response = await axios.patch(
+        `/api/topics/${props.topic_id}`,
+        {
+          name: name,
+          image_url: imageURL,
+          max_cards: maxCards,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setState({
         ...state,
@@ -53,10 +76,9 @@ export default function TopicForm(props) {
         ),
       });
 
-      props.onOpen()
+      props.onOpen();
     }
 
-    
     // const deleteTopic = async (card) => {
     //   await axios.delete(
     //     `/api/topics/${card.topicId}/`
@@ -94,7 +116,7 @@ export default function TopicForm(props) {
               inputProps={{
                 type: "number",
                 min: 0,
-                step: 1
+                step: 1,
               }}
               value={maxCards}
               onChange={(event) => {

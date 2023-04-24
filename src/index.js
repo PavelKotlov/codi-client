@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
@@ -13,10 +13,19 @@ import { ThemeProvider } from "@mui/material";
 import { Auth0Provider } from "@auth0/auth0-react";
 import TopicProvider from "./providers/TopicProvider";
 import codiTheme from "./codi-theme";
+import UserProvider from "./providers/UserProvider";
 
 const router = createBrowserRouter([
-  { path: "/", element: <App />, errorElement: <ErrorPage /> },
-  { path: "/topics", element: <Topics />, errorElement: <ErrorPage /> },
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/topics",
+    element: <Topics />,
+    errorElement: <ErrorPage />,
+  },
   {
     path: "/topics/:topic_id/dashboard",
     element: (
@@ -50,14 +59,19 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={codiTheme}>
       <Auth0Provider
-        domain="codi-app.us.auth0.com"
-        clientId="kUnewKRYTn8WKgrG1zJ7ADD9akcDAarQ"
+        domain={process.env.REACT_APP_AUTH0_DOMAIN}
+        clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
         authorizationParams={{
-          redirect_uri: window.location.origin
+          redirect_uri: window.location.origin,
+          // redirect_uri: "http://localhost:3000",
+          scope: "read:email, read:current_user",
+          audience: process.env.REACT_APP_AUTH0_AUDIANCE,
         }}
       >
-        <RouterProvider router={router} />
-      </Auth0Provider>,
+        <UserProvider>
+          <RouterProvider router={router} />
+        </UserProvider>
+      </Auth0Provider>
     </ThemeProvider>
   </React.StrictMode>
 );

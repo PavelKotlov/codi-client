@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import axios from "axios";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import GradeIcon from "@mui/icons-material/Grade";
@@ -6,11 +6,13 @@ import FunctionsIcon from "@mui/icons-material/Functions";
 import SchoolIcon from "@mui/icons-material/School";
 import { useParams } from "react-router-dom";
 import sra from "../helpers/sra/sra";
+import { UserContext } from "./UserProvider";
 
 export const topicContext = createContext();
 
 //TODO: Down the line topic provider needs to be renamed everywhere are DataProvider
-const TopicProvider = function TopicProvider(props) {
+const TopicProvider = (props) => {
+  const { token } = useContext(UserContext);
   const { topic_id } = useParams();
   const [state, setState] = useState({
     topic: {},
@@ -26,9 +28,21 @@ const TopicProvider = function TopicProvider(props) {
 
   useEffect(() => {
     Promise.all([
-      axios.get(`/api/topics/${topic_id}/stats`),
-      axios.get(`/api/topics/${topic_id}/cards`),
-      axios.get(`/api/topics/${topic_id}/cards/quiz`),
+      axios.get(`/api/topics/${topic_id}/stats`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      axios.get(`/api/topics/${topic_id}/cards`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      axios.get(`/api/topics/${topic_id}/cards/quiz`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
     ]).then((all) => {
       setState((prev) => ({
         ...prev,
@@ -70,19 +84,28 @@ const TopicProvider = function TopicProvider(props) {
         ],
       }));
     });
-  }, [topic_id, state.cards]);
+  }, [topic_id]);
+  //TODO:  state.cards in the array on line 86 was making the useEffect to rerender the page endlessly
 
   const addReview = (topic, card, selection) => {
     const updatedCard = sra(selection, card);
 
     return axios
-      .patch(`/api/topics/${topic.id}/cards/${card.id}`, {
-        review: { response: selection },
-        status: updatedCard.status,
-        ease_factor: updatedCard.ease_factor,
-        interval: updatedCard.interval,
-        due_at: updatedCard.due_at,
-      })
+      .patch(
+        `/api/topics/${topic.id}/cards/${card.id}`,
+        {
+          review: { response: selection },
+          status: updatedCard.status,
+          ease_factor: updatedCard.ease_factor,
+          interval: updatedCard.interval,
+          due_at: updatedCard.due_at,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         setState({
           ...state,
@@ -104,6 +127,11 @@ const TopicProvider = function TopicProvider(props) {
         front: updates.front,
         back: updates.back,
         tags: updates.tags,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
 
@@ -117,14 +145,22 @@ const TopicProvider = function TopicProvider(props) {
 
   const addCard = async (card) => {
     console.log("Here is the added card info", card);
-    const response = await axios.post(`/api/topics/${card.topicId}/cards`, {
-      front: card.front,
-      back: card.back,
-      type: card.type,
-      tags: card.tags,
-      note: card.note,
-      auto: card.auto,
-    });
+    const response = await axios.post(
+      `/api/topics/${card.topicId}/cards`,
+      {
+        front: card.front,
+        back: card.back,
+        type: card.type,
+        tags: card.tags,
+        note: card.note,
+        auto: card.auto,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     if (Array.isArray(response.data)) {
       setState({
@@ -140,7 +176,11 @@ const TopicProvider = function TopicProvider(props) {
   };
 
   const deleteCard = async (card) => {
-    await axios.delete(`/api/topics/${card.topicId}/cards/${card.id}`);
+    await axios.delete(`/api/topics/${card.topicId}/cards/${card.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     const withoutCard = state.cards.filter((element) => element.id !== card.id);
     setState({

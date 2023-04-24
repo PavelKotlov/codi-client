@@ -6,10 +6,13 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Avatar, ListItemIcon, Typography } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ITEM_HEIGHT = 48;
 
 export default function NavMenu() {
+  const { logout, user, isAuthenticated } = useAuth0();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -22,7 +25,6 @@ export default function NavMenu() {
 
   const handleSettings = () => {
     setAnchorEl(null);
-
   };
 
   return (
@@ -53,11 +55,19 @@ export default function NavMenu() {
           },
         }}
       >
-        <MenuItem onClick={handleClose}>
-          <Avatar />
-          <Typography variant="body2" color="text.secondary" p={1}>
-            Sara Miller
-          </Typography>
+        <MenuItem key="user" sx={{ py: 2 }} onClick={handleClose}>
+          {isAuthenticated && (
+            <>
+              <Avatar
+                alt={`${user.name}`}
+                src={`${user.picture}`}
+                sx={{ marginRight: 1 }}
+              />
+              <Typography variant="body2" color="text.secondary" p={1}>
+                {`${user.name}`}
+              </Typography>
+            </>
+          )}
         </MenuItem>
         <MenuItem key="setting" onClick={handleSettings}>
           <ListItemIcon>
@@ -68,7 +78,7 @@ export default function NavMenu() {
           </Typography>
         </MenuItem>
 
-        <MenuItem key="logout" onClick={handleClose}>
+        <MenuItem key="logout" onClick={logout}>
           <ListItemIcon>
             <ExitToAppIcon fontSize="small" />
           </ListItemIcon>
