@@ -6,7 +6,7 @@ import { topicContext } from "../../providers/TopicProvider";
 const SideBarList = (props) => {
   const { cards } = useContext(topicContext);
   const { selectCardFunc } = props;
-
+  console.log("***************************************");
   const cardsList = cards.map((card) => {
     return (
       <SideBarListItem
@@ -16,7 +16,7 @@ const SideBarList = (props) => {
       />
     );
   });
-
+  console.log("***************************************");
   return (
     <List
       sx={{

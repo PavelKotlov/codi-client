@@ -14,6 +14,7 @@ export const topicContext = createContext();
 const TopicProvider = (props) => {
   const { token } = useContext(UserContext);
   const { topic_id } = useParams();
+  const [cardsChanged, setCardsChanged] = useState(false);
   const [state, setState] = useState({
     topic: {},
     topics: [],
@@ -84,7 +85,7 @@ const TopicProvider = (props) => {
         ],
       }));
     });
-  }, [topic_id]);
+  }, [cardsChanged]);
   //TODO:  state.cards in the array on line 86 was making the useEffect to rerender the page endlessly
 
   const addReview = (topic, card, selection) => {
@@ -113,6 +114,7 @@ const TopicProvider = (props) => {
             card.id === res.data.id ? res.data : card
           ),
         });
+        setCardsChanged((prev) => !prev);
         return res.data;
       })
       .catch((e) => {
@@ -141,6 +143,7 @@ const TopicProvider = (props) => {
         card.id === response.data.id ? response.data : card
       ),
     });
+    setCardsChanged((prev) => !prev);
   };
 
   const addCard = async (card) => {
@@ -167,11 +170,13 @@ const TopicProvider = (props) => {
         ...state,
         cards: [...state.cards, ...response.data],
       });
+      setCardsChanged((prev) => !prev);
     } else {
       setState({
         ...state,
         cards: [...state.cards, response.data],
       });
+      setCardsChanged((prev) => !prev);
     }
   };
 
@@ -187,6 +192,7 @@ const TopicProvider = (props) => {
       ...state,
       cards: [...withoutCard],
     });
+    setCardsChanged((prev) => !prev);
   };
 
   const value = { ...state, addReview, editCard, addCard, deleteCard };
