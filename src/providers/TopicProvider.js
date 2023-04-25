@@ -168,13 +168,13 @@ const TopicProvider = (props) => {
     if (Array.isArray(response.data)) {
       setState({
         ...state,
-        cards: [...state.cards, ...response.data],
+        cards: [...response.data, ...state.cards],
       });
       setCardsChanged((prev) => !prev);
     } else {
       setState({
         ...state,
-        cards: [...state.cards, response.data],
+        cards: [response.data, ...state.cards],
       });
       setCardsChanged((prev) => !prev);
     }

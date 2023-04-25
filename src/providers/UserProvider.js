@@ -14,6 +14,7 @@ const UserProvider = (props) => {
         const accessToken = await getAccessTokenSilently({
           authorizationParams: {
             audience: process.env.REACT_APP_AUTH0_AUDIANCE,
+            scope: "profile",
           },
         });
 
