@@ -9,6 +9,7 @@ import {
   Switch,
   TextField,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { topicContext } from "../../../providers/TopicProvider";
@@ -35,7 +36,13 @@ const NewView = (props) => {
   };
 
   const handleNote = (event) => {
-    setNote(event.target.value);
+    // code to limit characters
+    if (event.target.value.length <= 500) {
+      setNote(event.target.value);
+    } else {
+      alert("Note text limit 500 characters");
+    }
+    // setNote(event.target.value);
   };
 
   const handleChipsChange = (event) => {
@@ -80,11 +87,11 @@ const NewView = (props) => {
 
   return (
     <Box p={8}>
-      <Grid container spacing={2}>
+      <Grid container spacing={4} px={20}>
         {/*TITLE*/}
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-          <Typography variant="h5">
-            {isConcept ? "New Concept" : "New Exercise"}
+          <Typography variant="h3" color="primaryCodi.dark">
+            {isConcept ? "Create Concept Card" : "Create Exercise Card"}
           </Typography>
         </Grid>
         {/*AUTO TOGGLE*/}
@@ -92,11 +99,12 @@ const NewView = (props) => {
           <Grid item xs={12}>
             <FormControlLabel
               label="Auto"
+              sx={{ color: "primaryCodi.dark" }}
               control={
                 <Switch
                   checked={auto}
                   onChange={handleAutoToggle}
-                  color="primary"
+                  color="info"
                 />
               }
             />
@@ -107,28 +115,58 @@ const NewView = (props) => {
           <Grid item xs={12}>
             <Stack spacing={2}>
               <TextField
-                label="Card Front"
+                placeholder="Card Front"
+                variant="standard"
                 value={front}
+                multiline
+                rows={2}
+                fullWidth
+                required
                 onChange={(event) => {
                   setFront(event.target.value);
                 }}
+                InputProps={{
+                  disableUnderline: true,
+                  style: { fontSize: 27 },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    color: "primaryCodi.dark",
+                  },
+                }}
+                sx={{
+                  bgcolor: "primaryCodi.light",
+                  boxShadow: 4,
+                  borderRadius: 7,
+                  px: 3,
+                  py: 2,
+                  fontSize: 4,
+                  boxShadow: "-10px 10px 10px rgba(62, 32, 102, .5)",
+                }}
+              />
+              <TextField
+                placeholder="Card Back"
+                variant="standard"
+                value={back}
                 multiline
                 rows={7}
                 fullWidth
                 required
-                sx={{ boxShadow: 4 }}
-              />
-              <TextField
-                label="Card Back"
-                value={back}
                 onChange={(event) => {
                   setBack(event.target.value);
                 }}
-                multiline
-                rows={7}
-                fullWidth
-                required
-                sx={{ boxShadow: 4 }}
+                InputProps={{
+                  disableUnderline: true,
+                  style: { fontSize: 27 },
+                }}
+                sx={{
+                  bgcolor: "primaryCodi.light",
+                  boxShadow: 4,
+                  borderRadius: 7,
+                  px: 3,
+                  py: 2,
+                  boxShadow: "-10px 10px 10px rgba(62, 32, 102, .5)",
+                }}
               />
             </Stack>
           </Grid>
@@ -138,20 +176,32 @@ const NewView = (props) => {
           <Grid item xs={12}>
             <Stack spacing={2}>
               <TextField
-                label="Note"
+                placeholder="Note"
+                variant="standard"
                 value={note}
-                onChange={handleNote}
                 multiline
-                rows={16}
+                rows={12}
                 fullWidth
                 required
-                sx={{ boxShadow: 4 }}
+                onChange={handleNote}
+                InputProps={{
+                  disableUnderline: true,
+                  style: { fontSize: 27 },
+                }}
+                sx={{
+                  bgcolor: "primaryCodi.light",
+                  boxShadow: 4,
+                  borderRadius: 7,
+                  px: 3,
+                  py: 2,
+                  boxShadow: "-10px 10px 10px rgba(62, 32, 102, .5)",
+                }}
               />
             </Stack>
           </Grid>
         )}
-        {/*TAGS*/}
-        {!auto && (
+        {/*TODO: REDO TAGS*/}
+        {/* {!auto && (
           <Grid item xs={12}>
             <Autocomplete
               multiple
@@ -160,38 +210,50 @@ const NewView = (props) => {
               onChange={handleChipsChange}
               options={[]}
               renderInput={(params) => (
-                <TextField {...params} label="Tags" fullWidth />
+                <TextField
+                  {...params}
+                  variant="standard"
+                  placeholder="Tags"
+                  fullWidth
+                  InputProps={{
+                    disableUnderline: true,
+                    style: { fontSize: 27 },
+                  }}
+                  sx={{
+                    bgcolor: "primaryCodi.light",
+                    boxShadow: 4,
+                    borderRadius: 7,
+                    px: 3,
+                    py: 2,
+                  }}
+                />
               )}
               renderTags={(value, getTagProps) =>
                 value.map((option, index) => (
                   <Button
                     key={option}
                     variant="contained"
-                    color="primary"
+                    sx={{
+                      boxShadow: 4,
+                      bgcolor: "accentsCodi.pink",
+                      "&:hover": {
+                        bgcolor: "accentsCodi.pink",
+                      },
+                    }}
                     {...getTagProps({ index })}
                   >
                     {option}
                   </Button>
                 ))
               }
-              sx={{ boxShadow: 4 }}
+              sx={{
+                boxShadow: 4,
+                bgcolor: "primaryCodi.light",
+                borderRadius: 5,
+              }}
             />
           </Grid>
-        )}
-        {/*SAVE BUTTONS*/}
-        <Grid item xs={12}>
-          {loading && <p>Loading</p>}
-          {!loading && (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSaveClick}
-              sx={{ boxShadow: 4 }}
-            >
-              {!auto ? "SAVE" : "GENERATE"}
-            </Button>
-          )}
-        </Grid>
+        )} */}
         {/*AUTO GENERATE BUTTONS*/}
         {!auto && isConcept && (
           <Grid item xs={12}>
@@ -202,13 +264,34 @@ const NewView = (props) => {
                   onChange={(event) => {
                     setChecked(event.target.checked);
                   }}
-                  color="primary"
+                  color="secondary"
                 />
               }
               label="Auto Generate Exercise"
+              sx={{ color: "primaryCodi.dark" }}
             />
           </Grid>
         )}
+        {/*SAVE BUTTONS*/}
+        <Grid item xs={12}>
+          {loading && <CircularProgress />}
+          {!loading && (
+            <Button
+              variant="contained"
+              onClick={handleSaveClick}
+              sx={{
+                boxShadow: 4,
+                bgcolor: "accentsCodi.pink",
+                "&:hover": {
+                  bgcolor: "accentsCodi.pinkHover",
+                  color: "primaryCodi.dark",
+                },
+              }}
+            >
+              {!auto ? "SAVE" : "GENERATE"}
+            </Button>
+          )}
+        </Grid>
       </Grid>
     </Box>
   );

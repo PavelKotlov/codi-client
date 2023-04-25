@@ -1,12 +1,16 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import {
+  Autocomplete,
   Breadcrumbs,
+  Button,
   Grid,
   IconButton,
+  InputAdornment,
   Stack,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -19,20 +23,30 @@ import QuizIcon from "@mui/icons-material/Quiz";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CloseIcon from "@mui/icons-material/Close";
 import NavMenu from "../controllers/menu";
+import { Search } from "@mui/icons-material";
 
 const SidePanel = (props) => {
   const { topic } = useContext(topicContext);
   const { selectCardFunc, selectTypeFunc } = props;
 
   return (
-    <Box sx={{ height: "100%" }}>
+    <Box
+      sx={{
+        height: "100%",
+        bgcolor: "primaryCodi.dark",
+        boxShadow: "10px 0px 20px rgba(62, 32, 102, .5)",
+      }}
+    >
       <CssBaseline />
       <Stack sx={{ height: "100%" }}>
         {/*Side Panel nav bar (breadcrumbs, X button*/}
         <Grid container sx={{ p: 1 }}>
           <Grid item>
             <Link to={`/topics/${topic.id}/dashboard`}>
-              <IconButton sx={{ p: 1 }} aria-label="close">
+              <IconButton
+                sx={{ p: 1, color: "primaryCodi.main" }}
+                aria-label="close"
+              >
                 <CloseIcon />
               </IconButton>
             </Link>
@@ -41,8 +55,11 @@ const SidePanel = (props) => {
             item
             sx={{ display: "flex", alignItems: "center", paddingLeft: 2 }}
           >
-            <Breadcrumbs aria-label="breadcrumb">
-              <Link to={"/topics"} underline="hover" color="inherit">
+            <Breadcrumbs
+              aria-label="breadcrumb"
+              sx={{ color: "accentsCodi.yellow" }}
+            >
+              <Link to={"/topics"} underline="hover">
                 Topics
               </Link>
               <Link
@@ -52,15 +69,15 @@ const SidePanel = (props) => {
               >
                 Dashboard
               </Link>
-              <Typography color="text.primary">Cards</Typography>
+              <Typography color="accentsCodi.yellow">Cards</Typography>
             </Breadcrumbs>
           </Grid>
         </Grid>
         {/*Search and filter*/}
         <Grid container>
-          <Grid item xs={11}>
-            {/*TODO: Make sure it brings back onle the correct card*/}
-            <NavMenu />
+          {/* <Grid item xs={11}>
+            TODO: Make sure it brings back onle the correct card
+            <NavMenu showSettings={true} />
           </Grid>
           <Grid
             item
@@ -77,11 +94,15 @@ const SidePanel = (props) => {
                 <SwipeableTemporaryDrawer />
               </IconButton>
             </Box>
-          </Grid>
+          </Grid> */}
         </Grid>
-        <Divider />
         {/*Add new cards section*/}
-        <Stack direction={"row"} spacing={2} sx={{ p: 1 }}>
+        <Stack
+          direction={"row"}
+          spacing={2}
+          sx={{ p: 1 }}
+          justifyContent={"space-around"}
+        >
           <Tooltip title="add concept card">
             <IconButton
               onClick={() => {
@@ -89,7 +110,19 @@ const SidePanel = (props) => {
               }}
               aria-label="add concept card"
             >
-              <LibraryBooksIcon color="primary" fontSize="large" />
+              <Button
+                variant="text"
+                startIcon={
+                  <LibraryBooksIcon
+                    sx={{ color: "accentsCodi.green" }}
+                    fontSize="large"
+                  />
+                }
+                size="large"
+                sx={{ color: "accentsCodi.green" }}
+              >
+                Concept
+              </Button>
             </IconButton>
           </Tooltip>
           <Tooltip
@@ -99,14 +132,24 @@ const SidePanel = (props) => {
             }}
           >
             <IconButton aria-label="add exercise card">
-              <QuizIcon color="primary" fontSize="large" />
+              <Button
+                variant="text"
+                startIcon={
+                  <QuizIcon
+                    sx={{ color: "accentsCodi.green" }}
+                    fontSize="large"
+                  />
+                }
+                size="large"
+                sx={{ color: "accentsCodi.green" }}
+              >
+                Exercise
+              </Button>
             </IconButton>
           </Tooltip>
         </Stack>
-        <Divider />
         {/*These are the cards within the deck listed*/}
         <SideBarList selectCardFunc={selectCardFunc} />
-        <Divider />
       </Stack>
     </Box>
   );

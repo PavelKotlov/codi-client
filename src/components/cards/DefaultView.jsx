@@ -1,8 +1,6 @@
 import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import image from "./Capture5.PNG";
 import { Box, Grid, Typography } from "@mui/material";
-
 const DefaultView = () => {
   return (
     <Box
@@ -27,7 +25,13 @@ const DefaultView = () => {
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
           {/*TODO: add an alt tag to the final image*/}
           <Box>
-            <img src={image} alt="" />
+            <img
+              src={
+                `${process.env.PUBLIC_URL}` +
+                "/assets/images/light/browse/lady.png"
+              }
+              width={650}
+            />
           </Box>
         </Grid>
       </Grid>

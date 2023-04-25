@@ -30,7 +30,17 @@ const Cards = () => {
   };
 
   return (
-    <Box className="cards" sx={{ display: "flex", height: "100vh" }}>
+    <Box
+      className="cards"
+      sx={{
+        display: "flex",
+        height: "100vh",
+        backgroundImage: `url(${
+          process.env.PUBLIC_URL + "/assets/images/light/browse/browse-bg.png"
+        })`,
+        backgroundSize: "cover",
+      }}
+    >
       <CssBaseline />
 
       {/*SIDE PANEL*/}
@@ -44,7 +54,7 @@ const Cards = () => {
 
       {/*Rendered views*/}
       <Box className="main-panel" sx={{ mx: 1, width: "70%" }}>
-        <NavMenu />
+        <NavMenu showSettings={true} />
         {view === "DEFAULT" && <DefaultView />}
         {view === "NEW CONCEPT" && <NewView isConcept={true} />}
         {view === "NEW EXERCISE" && <NewView isConcept={false} />}

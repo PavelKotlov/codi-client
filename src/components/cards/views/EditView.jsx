@@ -8,6 +8,7 @@ import {
   Stack,
   TextField,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { topicContext } from "../../../providers/TopicProvider";
@@ -30,13 +31,13 @@ const EditView = (props) => {
     setChips(selectedCard.tags);
   }, [selectedCard]);
 
-  const handleChipsChange = (event) => {
-    if (chips.length <= 10 && event.target.value.length <= 15) {
-      setChips((prev) => [...prev, event.target.value]);
-    } else {
-      alert("Tag text limit 15 characters");
-    }
-  };
+  // const handleChipsChange = (event) => {
+  //   if (chips.length <= 10 && event.target.value.length <= 15) {
+  //     setChips((prev) => [...prev, event.target.value]);
+  //   } else {
+  //     alert("Tag text limit 15 characters");
+  //   }
+  // };
 
   const handleSaveClick = () => {
     if (front.trim() === "" || back.trim() === "") {
@@ -56,10 +57,9 @@ const EditView = (props) => {
             type: "CHALLENGE",
             tags: chips,
             auto: checked,
+          }).then(() => {
+            setLoading(false);
           });
-        })
-        .then(() => {
-          setLoading(false);
         })
         .catch((err) => {
           setLoading(false);
@@ -89,49 +89,82 @@ const EditView = (props) => {
         alert("Unable to delete card");
       });
   };
-
   return (
     <Box p={8}>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} px={20}>
         {/*Title*/}
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
           {selectedCard.type === "CONCEPT" ? (
-            <Typography variant="h5">Edit Concept</Typography>
+            <Typography variant="h3" color="primaryCodi.dark">
+              Edit Concept
+            </Typography>
           ) : (
-            <Typography variant="h5">Edit Exercise</Typography>
+            <Typography variant="h3" color="primaryCodi.dark">
+              Edit Exercise
+            </Typography>
           )}
         </Grid>
         {/*Flash Cards Front/Back*/}
         <Grid item xs={12}>
           <Stack spacing={2}>
             <TextField
-              label="Card Front"
+              placeholder="Card Front"
+              variant="standard"
               value={front}
+              multiline
+              rows={2}
+              fullWidth
+              required
               onChange={(event) => {
                 setFront(event.target.value);
               }}
+              InputProps={{
+                disableUnderline: true,
+                style: { fontSize: 27 },
+              }}
+              InputLabelProps={{
+                sx: {
+                  color: "primaryCodi.dark",
+                },
+              }}
+              sx={{
+                bgcolor: "primaryCodi.light",
+                boxShadow: 4,
+                borderRadius: 7,
+                px: 3,
+                py: 2,
+                fontSize: 4,
+                boxShadow: "-10px 10px 10px rgba(62, 32, 102, .5)",
+              }}
+            />
+            <TextField
+              placeholder="Card Back"
+              variant="standard"
+              value={back}
               multiline
               rows={7}
               fullWidth
               required
-              sx={{ boxShadow: 4 }}
-            />
-            <TextField
-              label="Card Back"
-              value={back}
               onChange={(event) => {
                 setBack(event.target.value);
               }}
-              multiline
-              rows={7}
-              fullWidth
-              required
-              sx={{ boxShadow: 4 }}
+              InputProps={{
+                disableUnderline: true,
+                style: { fontSize: 27 },
+              }}
+              sx={{
+                bgcolor: "primaryCodi.light",
+                boxShadow: 4,
+                borderRadius: 7,
+                px: 3,
+                py: 2,
+                boxShadow: "-10px 10px 10px rgba(62, 32, 102, .5)",
+              }}
             />
           </Stack>
         </Grid>
-        {/*Tags*/}
-        <Grid item xs={12}>
+        {/*TODO: REDO Tags*/}
+        {/* <Grid item xs={12}>
           <Autocomplete
             multiple
             freeSolo
@@ -146,16 +179,22 @@ const EditView = (props) => {
                 <Button
                   key={option}
                   variant="contained"
-                  color="primary"
+                  sx={{
+                    boxShadow: 4,
+                    bgcolor: "accentsCodi.pink",
+                    "&:hover": {
+                      bgcolor: "accentsCodi.pink",
+                    },
+                  }}
                   {...getTagProps({ index })}
                 >
                   {option}
                 </Button>
               ))
             }
-            sx={{ boxShadow: 4 }}
-          />
-        </Grid>
+            sx={{ boxShadow: 4, bgcolor: "primaryCodi.light" }}
+          /> 
+        </Grid>*/}
         {/*Checkbox Auto Generate Exercise*/}
         <Grid item xs={12}>
           {selectedCard.type === "CONCEPT" && (
@@ -166,27 +205,38 @@ const EditView = (props) => {
                   onChange={(event) => {
                     setChecked(event.target.checked);
                   }}
-                  color="primary"
+                  color="secondary"
                 />
               }
               label="Auto Generate Exercise"
+              sx={{ color: "primaryCodi.dark" }}
             />
           )}
         </Grid>
         {/*Button Save*/}
         <Grid item xs={12}>
-          {loading && <p>Loading</p>}
+          {loading && <CircularProgress />}
           {!loading && (
             <>
               <Button
                 variant="contained"
-                color="primary"
                 onClick={handleSaveClick}
-                sx={{ boxShadow: 4 }}
+                sx={{
+                  boxShadow: 4,
+                  bgcolor: "accentsCodi.pink",
+                  "&:hover": {
+                    bgcolor: "accentsCodi.pinkHover",
+                    color: "primaryCodi.dark",
+                  },
+                }}
               >
                 Save
               </Button>
-              <IconButton aria-label="delete" color="error" size="large">
+              <IconButton
+                aria-label="delete"
+                size="large"
+                sx={{ color: "primaryCodi.dark" }}
+              >
                 <DeleteIcon fontSize="inherit" onClick={handleDeleteClick} />
               </IconButton>
             </>
