@@ -26,6 +26,7 @@ const codiTheme = createTheme({
     secondaryCodi: {
       main: "#7878EA",
       mainHover: "#B2B5F4",
+      light: "#DAE0FB",
     },
     accentsCodi: {
       yellow: "#FFD22D",
@@ -34,6 +35,10 @@ const codiTheme = createTheme({
       pinkHover: "#F4B8D6",
       green: "#27E0C0",
       greenHover: "#AAE8DC",
+    },
+    action: {
+      disabled: "#271d304a",
+      disabledBackground: "#ffe37cad",
     },
   },
 });
