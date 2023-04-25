@@ -1,5 +1,5 @@
-import { Paper, Grid, Typography } from '@mui/material';
-import React from 'react';
+import { Paper, Grid, Typography } from "@mui/material";
+import React from "react";
 
 const WidgetListItem = ({ text, number, icon: Icon }) => {
   return (
@@ -7,18 +7,25 @@ const WidgetListItem = ({ text, number, icon: Icon }) => {
       <Paper
         elevation={3}
         sx={{
-          bgcolor: '#7878ea', //'secondary.light'
-          color: 'white',
+          bgcolor: "primaryCodi.dark", //'secondary.light'
+          color: "white",
           p: 0.9,
-          height: '90%',
-          borderRadius: '15%',
-        }}>
-        <Icon sx={{ color: '#FFD22D' }} />
-        <Typography variant='h3' component='h1' align='center'>
+          height: "90%",
+          borderRadius: "15%",
+          boxShadow: "-10px 10px 10px rgba(62, 32, 102, .5)",
+        }}
+      >
+        <Icon sx={{ color: "accentsCodi.yellow" }} />
+        <Typography
+          variant="h3"
+          component="h1"
+          align="center"
+          color="primaryCodi.main"
+        >
           {number}
         </Typography>
 
-        <Typography align='center'>{text}</Typography>
+        <Typography align="center">{text}</Typography>
       </Paper>
     </Grid>
   );

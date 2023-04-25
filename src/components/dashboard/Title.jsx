@@ -1,16 +1,17 @@
-import { Typography } from '@mui/material';
-import React from 'react';
+import { Typography } from "@mui/material";
+import React from "react";
 
 const Title = ({ name }) => {
   return (
     <Typography
-      variant='h3'
-      component='h1'
+      variant="h3"
+      component="h1"
       sx={{
-        color: '#271D30',
-        fontWeight: 'bold',
+        color: "primaryCodi.main",
+        fontWeight: "bold",
       }}
-      align='center'>
+      align="center"
+    >
       {name}
     </Typography>
   );

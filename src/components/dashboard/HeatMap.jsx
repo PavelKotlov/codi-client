@@ -1,12 +1,12 @@
-import { Card, CardContent } from '@mui/material';
-import React from 'react';
-import CalendarHeatmap from 'react-calendar-heatmap';
-import { Tooltip } from 'react-tooltip';
-import { useContext } from 'react';
-import { topicContext } from '../../providers/TopicProvider';
-import 'react-tooltip/dist/react-tooltip.css';
-import 'react-calendar-heatmap/dist/styles.css';
-import './HeatMap.css';
+import { Card, CardContent } from "@mui/material";
+import React from "react";
+import CalendarHeatmap from "react-calendar-heatmap";
+import { Tooltip } from "react-tooltip";
+import { useContext } from "react";
+import { topicContext } from "../../providers/TopicProvider";
+import "react-tooltip/dist/react-tooltip.css";
+import "react-calendar-heatmap/dist/styles.css";
+import "./HeatMap.css";
 
 const today = new Date();
 const _today = new Date();
@@ -21,7 +21,12 @@ const HeatMap = () => {
   const maxCount = Math.max(...counts);
 
   return (
-    <Card sx={{ borderRadius: '25px' }}>
+    <Card
+      sx={{
+        borderRadius: "25px",
+        boxShadow: "-10px 10px 10px rgba(62, 32, 102, .5)",
+      }}
+    >
       <CardContent>
         <CalendarHeatmap
           startDate={oneDayAgoFormatted}
@@ -29,17 +34,17 @@ const HeatMap = () => {
           values={reviews}
           classForValue={(value) => {
             if (!value) {
-              return 'color-empty';
+              return "color-empty";
             }
             return `color-${Math.ceil((value.count / maxCount) * 10)} tooltips`;
           }}
           tooltipDataAttrs={(value) => {
             return {
-              'data-tooltip-content': `${value.count} reviews on ${value.date}`,
+              "data-tooltip-content": `${value.count} reviews on ${value.date}`,
             };
           }}
         />
-        <Tooltip anchorSelect='.tooltips' place='top'>
+        <Tooltip anchorSelect=".tooltips" place="top">
           Hello world!
         </Tooltip>
       </CardContent>

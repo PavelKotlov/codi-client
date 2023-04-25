@@ -14,16 +14,22 @@ const Buttons = () => {
         <Link to={`/topics/${topic.id}/quiz`} underline="hover" color="inherit">
           <Badge
             badgeContent={quizCardsCount}
-            color="primary"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              color: "primaryCodi.dark",
+            }}
+            color="secondary"
           >
             <Button
               disabled={quizCardsCount === 0}
               sx={{
-                color: "#271D30",
-                bgcolor: "#FFD22D",
+                color: "primaryCodi.dark",
+                bgcolor: "accentsCodi.yellow",
                 height: "50px",
                 borderRadius: "40px",
+                "&:hover": {
+                  bgcolor: "accentsCodi.yellowHover",
+                },
               }}
               fullWidth
               variant="contained"
@@ -41,7 +47,15 @@ const Buttons = () => {
           color="inherit"
         >
           <Button
-            sx={{ bgcolor: "#27E0C0", height: "50px", borderRadius: "40px" }}
+            sx={{
+              color: "primaryCodi.dark",
+              bgcolor: "primaryCodi.main",
+              height: "50px",
+              borderRadius: "40px",
+              "&:hover": {
+                bgcolor: "primaryCodi.mainHover",
+              },
+            }}
             fullWidth
             variant="contained"
             color="secondary"

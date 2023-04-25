@@ -1,10 +1,10 @@
-import { Card, IconButton, Stack } from '@mui/material';
-import React from 'react';
-import ReactEcharts from 'echarts-for-react';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { useContext } from 'react';
-import { topicContext } from '../../providers/TopicProvider';
+import { Card, IconButton, Stack } from "@mui/material";
+import React from "react";
+import ReactEcharts from "echarts-for-react";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { useContext } from "react";
+import { topicContext } from "../../providers/TopicProvider";
 
 const BarChart = ({ onClick }) => {
   const { ease } = useContext(topicContext);
@@ -23,8 +23,8 @@ const BarChart = ({ onClick }) => {
       height: 200,
     },
     xAxis: {
-      name: 'Ease',
-      type: 'category',
+      name: "Ease",
+      type: "category",
       data: dummyEase,
       axisTick: {
         show: false,
@@ -34,8 +34,8 @@ const BarChart = ({ onClick }) => {
       },
     },
     yAxis: {
-      name: 'Cards',
-      type: 'value',
+      name: "Cards",
+      type: "value",
       show: true,
       splitLine: {
         show: false,
@@ -50,26 +50,33 @@ const BarChart = ({ onClick }) => {
     series: [
       {
         data: dummyCounts,
-        type: 'bar',
-        barWidth: '40%',
+        type: "bar",
+        barWidth: "40%",
+        color: "#271D30",
       },
     ],
+    title: {
+      text: "Ease of Comprehension",
+      left: "center",
+    },
   };
 
   return (
     <Card
       sx={{
-        bgcolor: '#fff',
-        display: 'flex',
-        borderRadius: '25px',
-        width: '90%',
-        margin: '0 auto',
-      }}>
-      <Stack direction={'row'}>
+        bgcolor: "#fff",
+        display: "flex",
+        borderRadius: "25px",
+        width: "90%",
+        margin: "0 auto",
+        boxShadow: "-10px 10px 10px rgba(62, 32, 102, .5)",
+      }}
+    >
+      <Stack direction={"row"}>
         <IconButton sx={{ borderRadius: 0 }} onClick={onClick}>
           <ArrowBackIosNewIcon />
         </IconButton>
-        <div style={{ width: '110%', height: 275 }}>
+        <div style={{ width: "110%", height: 275 }}>
           <ReactEcharts option={option} />
         </div>
         <IconButton sx={{ borderRadius: 0 }} onClick={onClick}>
