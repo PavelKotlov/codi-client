@@ -1,33 +1,33 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import * as serviceWorker from "./serviceWorker";
-import "./index.css";
-import App from "./routes/App";
-import Cards from "./pages/cards";
-import Dashboard from "./pages/dashboard";
-import Quiz from "./pages/quiz";
-import Topics from "./pages/topics";
-import ErrorPage from "./error-page";
-import { ThemeProvider } from "@mui/material";
-import { Auth0Provider } from "@auth0/auth0-react";
-import TopicProvider from "./providers/TopicProvider";
-import codiTheme from "./codi-theme";
-import UserProvider from "./providers/UserProvider";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import * as serviceWorker from './serviceWorker';
+import './index.css';
+import App from './routes/App';
+import Cards from './pages/cards';
+import Dashboard from './pages/dashboard';
+import Quiz from './pages/quiz';
+import Topics from './pages/topics';
+import ErrorPage from './error-page';
+import { ThemeProvider } from '@mui/material';
+import { Auth0Provider } from '@auth0/auth0-react';
+import TopicProvider from './providers/TopicProvider';
+import codiTheme from './codi-theme';
+import UserProvider from './providers/UserProvider';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/topics",
+    path: '/topics',
     element: <Topics />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/topics/:topic_id/dashboard",
+    path: '/topics/:topic_id/dashboard',
     element: (
       <TopicProvider>
         <Dashboard />
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/topics/:topic_id/quiz",
+    path: '/topics/:topic_id/quiz',
     element: (
       <TopicProvider>
         <Quiz />
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/topics/:topic_id/cards",
+    path: '/topics/:topic_id/cards',
     element: (
       <TopicProvider>
         <Cards />
@@ -55,19 +55,17 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={codiTheme}>
       <Auth0Provider
         domain={process.env.REACT_APP_AUTH0_DOMAIN}
         clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
         authorizationParams={{
-          redirect_uri: window.location.origin,
-          // redirect_uri: "http://localhost:3000",
-          scope: "read:email, read:current_user",
+          redirect_uri: 'http://localhost:3000/topics',
+          scope: 'profile',
           audience: process.env.REACT_APP_AUTH0_AUDIANCE,
-        }}
-      >
+        }}>
         <UserProvider>
           <RouterProvider router={router} />
         </UserProvider>
