@@ -13,20 +13,27 @@ export default function TopicForm(props) {
   const [maxCards, setMaxCards] = useState(25);
   const [imageURL, setImageURL] = useState("");
 
+  const resetForm = () => {
+    setName("");
+    setMaxCards(25);
+    setImageURL("");
+  };
+
   // Should this be an if there is id then run ???
-  // useEffect(async () => {
-  //   try {
-  //     console.log(Object.keys(props));
-  //     const response = await axios.get(`/api/topics/${props.topic_id}`);
-  //     console.log(response.body);
-  //     setName(response.body.name);
-  //     setMaxCards(response.body.max_cards);
-  //     setImageURL(response.body.image_url);
-  //   } catch (error) {
-  //     console.log(error.status);
-  //     console.log(error.message);
-  //   }
-  // }, [props.topic_id]);
+  useEffect(() => {
+    console.log(Object.keys(props));
+    const response = axios
+      .get(`/api/topics/${props.topic_id}`)
+      .then((response) => {
+        console.log(response.body);
+        setName(response.body.name);
+        setMaxCards(response.body.max_cards);
+        setImageURL(response.body.image_url);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [props.topic_id]);
 
   //TODO: update value for edit topic
   const handleSave = async () => {
@@ -37,7 +44,7 @@ export default function TopicForm(props) {
         {
           name: name,
           image_url: imageURL,
-          max_cards: maxCards,
+          max_cards: Number(maxCards),
           //TODO: change to logged in user
         },
         {
@@ -49,7 +56,7 @@ export default function TopicForm(props) {
 
       setState({
         ...state,
-        topics: [...state.topics, response.data],
+        topics: [response.data, ...state.topics],
       });
 
       props.onOpen();
@@ -60,7 +67,7 @@ export default function TopicForm(props) {
         {
           name: name,
           image_url: imageURL,
-          max_cards: maxCards,
+          max_cards: Number(maxCards),
         },
         {
           headers: {
@@ -79,12 +86,13 @@ export default function TopicForm(props) {
       props.onOpen();
     }
 
-    // const deleteTopic = async (card) => {
+    // const handleTopic = async (card) => {
     //   await axios.delete(
     //     `/api/topics/${card.topicId}/`
     //   );
 
     // }
+    resetForm();
   };
   return (
     <Box>
@@ -110,7 +118,7 @@ export default function TopicForm(props) {
 
             <TextField
               id="standard-multiline-static"
-              label="Maximum Cards"
+              label="Maximum Cards per Study Session"
               fullWidth
               sx={{ my: 2 }}
               inputProps={{

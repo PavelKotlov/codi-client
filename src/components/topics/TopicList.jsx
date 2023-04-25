@@ -33,18 +33,26 @@ const TopicList = ({ state, setState }) => {
 
   return (
     <Grid
+      className="topics-container"
       container
-      spacing={5}
       sx={{
-        bgcolor: "#E9f5ff",
+        flowDirection: "column",
+        height: "100vh",
+        px: "2%",
+        paddingTop: "8%",
+        width: "65%",
+        margin: "0 auto",
       }}
     >
+      {/*search bar*/}
       <Grid
         container
+        className="topics-search-container"
         sx={{
-          p: "2%",
-          width: "40%",
+          width: "20%",
           display: "block",
+          position: "absolute",
+          padding: 1,
         }}
       >
         <Autocomplete
@@ -58,8 +66,13 @@ const TopicList = ({ state, setState }) => {
             <TextField
               {...params}
               label="Search Topics"
+              sx={{
+                bgcolor: "rgba(0, 0, 0, 0.2)",
+                borderRadius: 2,
+              }}
               variant="filled"
               InputProps={{
+                disableUnderline: true,
                 startAdornment: (
                   <InputAdornment position="start">
                     <Search
@@ -72,17 +85,32 @@ const TopicList = ({ state, setState }) => {
                   </InputAdornment>
                 ),
               }}
+              InputLabelProps={{
+                sx: { color: "primaryCodi.dark" },
+              }}
             />
           )}
         />
       </Grid>
-      <Grid container spacing={5}>
+      {/*Add topic button + topic list*/}
+      <Grid
+        container
+        sx={{
+          overflow: "auto",
+          maxHeight: 595,
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+          marginTop: 13,
+        }}
+        className="topics-list-container"
+      >
         <AddTopicButton onOpen={onOpen} />
         <Backdrop
           sx={{
             color: "#fff",
             zIndex: (theme) => theme.zIndex.drawer + 1,
-            backgroundColor: "rgba(0, 0, 0, 0.8)",
+            bgcolor: "rgba(0, 0, 0, 0.8)",
           }}
           open={open}
         >

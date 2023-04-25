@@ -3,8 +3,8 @@ import axios from "axios";
 import TopicList from "../components/topics/TopicList";
 import Loading from "../components/Loading";
 import NavMenu from "../components/controllers/menu";
-import { Grid } from "@mui/material";
-import Close from "../components/controllers/closeButton";
+import { Box } from "@mui/material";
+import CloseButton from "../components/controllers/CloseButton";
 import { UserContext } from "../providers/UserProvider";
 
 const Topics = () => {
@@ -32,26 +32,24 @@ const Topics = () => {
   }, []);
 
   return (
-    <>
-      <Close link={"/"} />
-      <NavMenu />
+    <Box
+      height="100vh"
+      bgcolor="background.light"
+      sx={{
+        backgroundImage: `url(${
+          process.env.PUBLIC_URL + "/assets/images/light/topics-bg.png"
+        })`,
+        backgroundSize: "cover",
+      }}
+    >
+      <CloseButton link={"/"} isDefault={true} />
+      <NavMenu showSettings={false} />
       {state.loading ? (
         <Loading />
       ) : (
-        <Grid
-          sx={{
-            flowDirection: "column",
-            maxHeight: "100vh",
-            px: "2%",
-            paddingTop: "8%",
-            width: "65%",
-            margin: "0 auto",
-          }}
-        >
-          <TopicList state={state} setState={setState} />
-        </Grid>
+        <TopicList state={state} setState={setState} />
       )}
-    </>
+    </Box>
   );
 };
 
