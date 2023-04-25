@@ -8,30 +8,7 @@ import CloseButton from "../components/controllers/CloseButton";
 import { UserContext } from "../providers/UserProvider";
 
 const Topics = () => {
-  const { token } = useContext(UserContext);
-  const [state, setState] = useState({
-    loading: true,
-    topics: [],
-  });
-
-  // console.log("Token in topics", token);
-  useEffect(() => {
-    if (token) {
-      axios
-        .get(`/api/topics`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          setState((prev) => ({
-            ...prev,
-            topics: res.data,
-            loading: false,
-          }));
-        });
-    }
-  }, [token]);
+  const { loading } = useContext(UserContext);
 
   return (
     <Box
@@ -46,11 +23,7 @@ const Topics = () => {
     >
       <CloseButton link={"/"} isDefault={true} />
       <NavMenu showSettings={false} />
-      {state.loading ? (
-        <Loading />
-      ) : (
-        <TopicList state={state} setState={setState} />
-      )}
+      {loading ? <Loading /> : <TopicList />}
     </Box>
   );
 };
