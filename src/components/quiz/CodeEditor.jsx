@@ -17,6 +17,7 @@ export default function CodeEditor() {
       showPrintMargin={true}
       showGutter={true}
       highlightActiveLine={true}
+      width="95%"
     />
   );
 }

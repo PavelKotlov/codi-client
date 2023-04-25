@@ -10,7 +10,7 @@ import {
   Box,
 } from "@mui/material";
 import "./quiz.css";
-import { CodeBlock } from "react-code-blocks";
+import { CodeBlock, arta } from "react-code-blocks";
 import ProgressBar from "./ProgressBar";
 
 export default function Back(props) {
@@ -26,87 +26,149 @@ export default function Back(props) {
       style={{ minHeight: "100vh", wordWrap: "break-word" }}
     >
       <Card
-        sx={{ borderRadius: "16px", boxShadow: 3 }}
+        sx={{
+          borderRadius: 5,
+          boxShadow: "-10px 10px 10px rgba(62, 32, 102, .5)",
+          bgcolor: "primaryCodi.dark",
+        }}
         className="box-container"
       >
-        <Box>
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h4"
-              color="textSecondary"
-              className="card-box__front"
-            >
-              {currentCard.front}
-            </Typography>
-          </CardContent>
-          <Divider component="div" role="presentation"></Divider>
-        </Box>
-        <CardContent>
+        <CardContent
+          sx={{
+            bgcolor: "primaryCodi.dark",
+            borderRadius: 4,
+            mx: 2,
+            marginBottom: 2,
+          }}
+        >
+          <Typography
+            gutterBottom
+            variant="h4"
+            color="primaryCodi.main"
+            className="card-box__front"
+          >
+            {currentCard.front}
+          </Typography>
+        </CardContent>
+
+        <CardContent
+          sx={{
+            bgcolor: "primaryCodi.main",
+            borderRadius: 4,
+            mx: 2,
+            marginBottom: 2,
+          }}
+        >
           {currentCard.type === "CONCEPT" && (
             <Typography
               gutterBottom
               variant="h5"
-              color="textSecondary"
-              className="card-box__back"
+              color="primaryCodi.dark"
+              className="card-box__front"
+              py={5}
+              px={2}
             >
               {currentCard.back}
             </Typography>
           )}
-
+          {/*TODO:Maybe Add Languages dropdown menu*/}
           {currentCard.type === "CHALLENGE" && (
             <CodeBlock
+              language="JavaScript"
               text={currentCard.back}
               showLineNumbers={false}
-              theme="atom-one-dark"
-            ></CodeBlock>
+              theme={arta}
+            />
           )}
         </CardContent>
 
         <CardActions>
-          <Grid container spacing={2} direction="row" justifyContent="center">
-            <ButtonGroup
-              className="card-group__button"
-              size="large"
-              color="secondary"
-            >
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            my={2}
+            sx={{
+              backgroundImage: `url(${
+                process.env.PUBLIC_URL + "/assets/images/default/blueLine.png"
+              })`,
+              backgroundSize: "cover",
+            }}
+          >
+            <Grid item>
               <Button
-                className="card-box__button"
                 size="medium"
                 variant="contained"
+                sx={{
+                  px: 5,
+                  borderRadius: 5,
+                  bgcolor: "secondaryCodi.main",
+                  "&:hover": {
+                    bgcolor: "secondaryCodi.mainHover",
+                  },
+                }}
                 onClick={() => handleClick("AGAIN")}
               >
                 Again
               </Button>
+            </Grid>
+            <Grid item>
               <Button
-                className="card-box__button"
                 size="medium"
                 variant="contained"
+                sx={{
+                  px: 5,
+                  borderRadius: 5,
+                  bgcolor: "accentsCodi.pink",
+                  "&:hover": {
+                    bgcolor: "accentsCodi.pinkHover",
+                  },
+                }}
                 onClick={() => handleClick("HARD")}
               >
                 Hard
               </Button>
+            </Grid>
+            <Grid item>
               <Button
-                className="card-box__button"
                 size="medium"
                 variant="contained"
+                sx={{
+                  px: 5,
+                  borderRadius: 5,
+                  bgcolor: "accentsCodi.yellow",
+                  color: "primaryCodi.dark",
+                  "&:hover": {
+                    bgcolor: "accentsCodi.yellowHover",
+                  },
+                }}
                 onClick={() => handleClick("GOOD")}
               >
                 Good
               </Button>
+            </Grid>
+            <Grid item>
               <Button
-                className="card-box__button"
                 size="medium"
                 variant="contained"
+                sx={{
+                  px: 5,
+                  borderRadius: 5,
+                  bgcolor: "accentsCodi.green",
+                  color: "primaryCodi.dark",
+                  "&:hover": {
+                    bgcolor: "accentsCodi.greenHover",
+                  },
+                }}
                 onClick={() => handleClick("EASY")}
               >
                 Easy
               </Button>
-            </ButtonGroup>
+            </Grid>
           </Grid>
         </CardActions>
       </Card>
-      <Grid item sx={{ width: "700px", marginTop: "-20px"}}>
+      <Grid sx={{ width: "60%", marginBottom: 10 }}>
         <ProgressBar progress={progress} />
       </Grid>
     </Grid>
