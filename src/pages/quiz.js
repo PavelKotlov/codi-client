@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import Front from "../components/quiz/Front";
 import Back from "../components/quiz/Back";
-import QuizComplete from "../components/quiz/QuizComplete";
 import { useState } from "react";
-import { createTheme, Grid, ThemeProvider } from "@mui/material";
+import { Box, Button, createTheme, Grid } from "@mui/material";
 import "../components/quiz/quiz.css";
 import { topicContext } from "../providers/TopicProvider";
 import { useContext } from "react";
 import NavMenu from "../components/controllers/menu";
-import CloseButton from "../components/controllers/closeButton";
+import CloseButton from "../components/controllers/CloseButton";
+import { useNavigate } from "react-router-dom";
 
 export default function Quiz() {
   const { topic, quizCards, addReview } = useContext(topicContext);
@@ -19,6 +19,8 @@ export default function Quiz() {
   const [currentCard, setCurrentCard] = useState(quizCards[0]);
   const [mode, setMode] = useState("FRONT");
   const [progress, setProgress] = useState(0);
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     const initialQuizCards = [...quizCards];
@@ -89,11 +91,21 @@ export default function Quiz() {
     }
   };
 
-  const codiTheme = createTheme({});
   return (
-    <ThemeProvider theme={codiTheme}>
+    <Box
+      height="100vh"
+      bgcolor="background.light"
+      sx={{
+        backgroundImage: `url(${
+          process.env.PUBLIC_URL + mode === "COMPLETE"
+            ? "/assets/images/light/quiz/awesomeComplete.png"
+            : "/assets/images/light/quiz/quiz-bg.png"
+        })`,
+        backgroundSize: "cover",
+      }}
+    >
       <NavMenu />
-      <CloseButton link={`/topics/${topic.id}/dashboard`} />
+      <CloseButton link={`/topics/${topic.id}/dashboard`} isDefault={true} />
       <Grid container direction="column" alignItems="center">
         <Grid>
           {currentCard && mode === "FRONT" && (
@@ -112,7 +124,35 @@ export default function Quiz() {
           )}
         </Grid>
       </Grid>
-      {mode === "COMPLETE" && <QuizComplete />}
-    </ThemeProvider>
+      {mode === "COMPLETE" && (
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{
+            position: "absolute",
+            bottom: 0,
+            right: 0,
+            marginRight: 40,
+            marginBottom: 20,
+            width: 200,
+            height: 60,
+            fontSize: 32,
+            px: 5,
+            borderRadius: 5,
+            bgcolor: "accentsCodi.pink",
+            "&:hover": {
+              bgcolor: "accentsCodi.pinkHover",
+            },
+            color: "primaryCodi.main",
+            boxShadow: "-10px 10px 10px rgba(62, 32, 102, .5)",
+          }}
+          onClick={() => {
+            navigate(`/topics/${topic.id}/dashboard`);
+          }}
+        >
+          Exit
+        </Button>
+      )}
+    </Box>
   );
 }
