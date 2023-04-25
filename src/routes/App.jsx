@@ -1,6 +1,6 @@
 import React from "react";
 import ButtonAppBar from "../components/controllers/ButtonAppBar";
-import { Box, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "../components/Profile";
 const App = () => {
