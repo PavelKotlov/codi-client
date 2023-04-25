@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,12 +7,14 @@ import { Avatar, ListItemIcon, Typography } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { useAuth0 } from "@auth0/auth0-react";
+import TopicForm from "../settings/TopicForm";
+import { useState } from "react";
 
 const ITEM_HEIGHT = 48;
 
-export default function NavMenu({ showSettings }) {
+export default function NavMenu({ showSettings, setOpen, openTopicFormState }) {
   const { logout, user, isAuthenticated } = useAuth0();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
 
@@ -24,6 +26,7 @@ export default function NavMenu({ showSettings }) {
   };
 
   const handleSettings = () => {
+    setOpen(!openTopicFormState);
     setAnchorEl(null);
   };
 
@@ -77,7 +80,12 @@ export default function NavMenu({ showSettings }) {
           )}
         </MenuItem>
         {showSettings && (
-          <MenuItem key="setting" onClick={handleSettings}>
+          <MenuItem
+            key="setting"
+            onClick={() => {
+              handleSettings();
+            }}
+          >
             <ListItemIcon>
               <SettingsIcon fontSize="small" />
             </ListItemIcon>

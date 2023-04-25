@@ -26,12 +26,16 @@ const NewView = (props) => {
   const [chips, setChips] = useState([]);
   const [checked, setChecked] = useState(false);
 
-  const handleAutoToggle = () => {
-    setAuto((prevAuto) => !prevAuto);
+  const reset = () => {
     setFront("");
     setBack("");
     setNote("");
     setChips([]);
+  };
+
+  const handleAutoToggle = () => {
+    setAuto((prevAuto) => !prevAuto);
+    reset();
     setChecked(false);
   };
 
@@ -78,6 +82,7 @@ const NewView = (props) => {
     })
       .then(() => {
         setLoading(false);
+        reset();
       })
       .catch((err) => {
         setLoading(false);

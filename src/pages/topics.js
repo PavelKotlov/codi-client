@@ -14,22 +14,24 @@ const Topics = () => {
     topics: [],
   });
 
-  console.log("Token in topics", token);
+  // console.log("Token in topics", token);
   useEffect(() => {
-    axios
-      .get(`/api/topics`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setState((prev) => ({
-          ...prev,
-          topics: res.data,
-          loading: false,
-        }));
-      });
-  }, []);
+    if (token) {
+      axios
+        .get(`/api/topics`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setState((prev) => ({
+            ...prev,
+            topics: res.data,
+            loading: false,
+          }));
+        });
+    }
+  }, [token]);
 
   return (
     <Box

@@ -124,7 +124,7 @@ export default function Front(props) {
           </CardActions>
           <Box
             sx={{
-              position: "fixed",
+              position: "absolute",
               bottom: -65,
               left: -80,
             }}

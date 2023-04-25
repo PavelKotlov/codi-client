@@ -19,21 +19,23 @@ export default function TopicForm(props) {
     setImageURL("");
   };
 
-  // Should this be an if there is id then run ???
-  useEffect(() => {
-    console.log(Object.keys(props));
-    const response = axios
-      .get(`/api/topics/${props.topic_id}`)
-      .then((response) => {
-        console.log(response.body);
-        setName(response.body.name);
-        setMaxCards(response.body.max_cards);
-        setImageURL(response.body.image_url);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [props.topic_id]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`/api/topics/${props.topic_id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response.body);
+  //       setName(response.body.name);
+  //       setMaxCards(response.body.max_cards);
+  //       setImageURL(response.body.image_url);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [props.topic_id]);
 
   //TODO: update value for edit topic
   const handleSave = async () => {
@@ -94,6 +96,7 @@ export default function TopicForm(props) {
     // }
     resetForm();
   };
+
   return (
     <Box>
       <Paper elevation={5} sx={{ bgcolor: "White", p: 4, borderRadius: 5 }}>

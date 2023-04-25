@@ -26,7 +26,7 @@ const Dashboard = () => {
         backgroundSize: "cover",
       }}
     >
-      <NavMenu showSettings={true} />
+      <NavMenu showSettings={true} setOpen={setOpen} open={open} />
       <CloseButton link="/topics" isDefault={false} />
       <Grid
         container
@@ -57,16 +57,23 @@ const Dashboard = () => {
           <Stats />
         </Grid>
       </Grid>
-      <Backdrop
-        sx={{
-          color: "#fff",
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-          bgcolor: "rgba(0, 0, 0, 0.8)",
-        }}
-        open={open}
-      >
-        {/* <TopicForm onOpen={onOpen} state={state} setState={setState} topic_id={ topic.id} /> */}
-      </Backdrop>
+      {open && (
+        <Backdrop
+          sx={{
+            color: "#fff",
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+            bgcolor: "rgba(0, 0, 0, 0.8)",
+          }}
+          open={open}
+        >
+          {/* <TopicForm
+            onOpen={onOpen}
+            // state={open}
+            // setState={setOpen}
+            topic_id={topic.id}
+          /> */}
+        </Backdrop>
+      )}
     </Box>
   );
 };

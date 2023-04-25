@@ -11,15 +11,33 @@ const ButtonAppBar = () => {
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1, mx: 7 }}>
+      <AppBar
+        position="static"
+        sx={{ bgcolor: "rgba(0,0,0,0)", color: "primaryCodi.dark" }}
+        elevation={0}
+      >
         <Toolbar>
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-            Codi
-          </Typography>
+          <Box variant="h4" component="div" sx={{ flexGrow: 1 }}>
+            <img
+              src={
+                `${process.env.PUBLIC_URL}` + "/assets/icons/dark/codiLogo.png"
+              }
+              width={80}
+              alt="logo"
+              component="div"
+              sx={{ flexGrow: 1 }}
+            />
+          </Box>
+
           {!isAuthenticated && (
             <Button
-              color="inherit"
+              sx={{
+                color: "primaryCodi.dark",
+                "&:hover": {
+                  color: "accentsCodi.pink",
+                },
+              }}
               size="large"
               onClick={() => {
                 loginWithRedirect();
@@ -30,7 +48,16 @@ const ButtonAppBar = () => {
           )}
           {isAuthenticated && (
             <Link to="/topics">
-              <Typography>Welcome {user.given_name}!</Typography>
+              <Typography
+                sx={{
+                  color: "primaryCodi.dark",
+                  "&:hover": {
+                    color: "accentsCodi.pink",
+                  },
+                }}
+              >
+                Welcome {user.given_name}!
+              </Typography>
             </Link>
           )}
           {isAuthenticated && (
@@ -41,7 +68,13 @@ const ButtonAppBar = () => {
               onClick={() =>
                 logout({ logoutParams: { returnTo: window.location.origin } })
               }
-              sx={{ ml: 3 }}
+              sx={{
+                color: "primaryCodi.dark",
+                "&:hover": {
+                  color: "accentsCodi.pink",
+                },
+                ml: 3,
+              }}
             >
               Logout
             </Button>

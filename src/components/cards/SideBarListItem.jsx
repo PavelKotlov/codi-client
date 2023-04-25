@@ -9,7 +9,7 @@ import { Badge, Tooltip, Typography } from "@mui/material";
 import { topicContext } from "../../providers/TopicProvider";
 
 const SideBarListItem = (props) => {
-  const { card, selectCardFunc } = props;
+  const { card, selectCardFunc, currentCard } = props;
   const { cards } = useContext(topicContext);
   const [loading, setLoading] = useState(false);
 
@@ -34,8 +34,25 @@ const SideBarListItem = (props) => {
           onClick={() => {
             selectCardFunc(card);
           }}
+          sx={{
+            bgcolor:
+              card === currentCard ? "primaryCodi.main" : "primaryCodi.dark",
+            color:
+              card === currentCard ? "primaryCodi.dark" : "primaryCodi.main",
+            "&:hover": {
+              bgcolor:
+                card === currentCard ? "primaryCodi.dark" : "primaryCodi.main",
+              color:
+                card === currentCard ? "primaryCodi.main" : "primaryCodi.dark",
+            },
+          }}
         >
-          <ListItemIcon sx={{ color: "primaryCodi.main" }} size="large">
+          <ListItemIcon
+            sx={{
+              color: "inherit",
+            }}
+            size="large"
+          >
             {card.type === "CONCEPT" ? <LibraryBooksIcon /> : <QuizIcon />}
           </ListItemIcon>
           {loading && (
@@ -60,7 +77,6 @@ const SideBarListItem = (props) => {
                   }}
                   component="span"
                   variant="h6"
-                  color="primaryCodi.main"
                   noWrap
                 >
                   {card.front}

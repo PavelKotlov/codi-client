@@ -7,7 +7,7 @@ import { Search } from "@mui/icons-material";
 
 const SideBarList = (props) => {
   const { cards } = useContext(topicContext);
-  const { selectCardFunc } = props;
+  const { selectCardFunc, currentCard } = props;
   const [searchQuery, setSearchQuery] = useState("");
 
   // If searchQuery is empty, then the includes() method will return true for every topic's name property,
@@ -22,6 +22,7 @@ const SideBarList = (props) => {
         key={card.id}
         card={card}
         selectCardFunc={selectCardFunc}
+        currentCard={currentCard}
       />
     );
   });

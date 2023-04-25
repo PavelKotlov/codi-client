@@ -62,8 +62,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         domain={process.env.REACT_APP_AUTH0_DOMAIN}
         clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
         authorizationParams={{
-          redirect_uri: window.location.origin,
-          // redirect_uri: "http://localhost:3000",
+          redirect_uri: "http://localhost:3000/topics",
           scope: "read:email, read:current_user",
           audience: process.env.REACT_APP_AUTH0_AUDIANCE,
         }}

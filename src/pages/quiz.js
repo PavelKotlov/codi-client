@@ -104,7 +104,7 @@ export default function Quiz() {
         backgroundSize: "cover",
       }}
     >
-      <NavMenu />
+      <NavMenu showSettings={false} />
       <CloseButton link={`/topics/${topic.id}/dashboard`} isDefault={true} />
       <Grid container direction="column" alignItems="center">
         <Grid>

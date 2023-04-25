@@ -27,7 +27,7 @@ import { Search } from "@mui/icons-material";
 
 const SidePanel = (props) => {
   const { topic } = useContext(topicContext);
-  const { selectCardFunc, selectTypeFunc } = props;
+  const { selectCardFunc, selectTypeFunc, currentCard } = props;
 
   return (
     <Box
@@ -149,7 +149,10 @@ const SidePanel = (props) => {
           </Tooltip>
         </Stack>
         {/*These are the cards within the deck listed*/}
-        <SideBarList selectCardFunc={selectCardFunc} />
+        <SideBarList
+          selectCardFunc={selectCardFunc}
+          currentCard={currentCard}
+        />
       </Stack>
     </Box>
   );
