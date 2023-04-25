@@ -10,10 +10,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const ITEM_HEIGHT = 48;
 
-export default function NavMenu() {
+export default function NavMenu({ showSettings }) {
   const { logout, user, isAuthenticated } = useAuth0();
-
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -30,12 +30,19 @@ export default function NavMenu() {
   return (
     <div>
       <IconButton
-        sx={{ position: "absolute", top: 0, right: 0, marginRight: 3 }}
+        sx={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          marginRight: 3,
+          color: "primaryCodi.dark",
+        }}
         aria-label="more"
         id="long-button"
         aria-controls={open ? "long-menu" : undefined}
         aria-expanded={open ? "true" : undefined}
         aria-haspopup="true"
+        size="large"
         onClick={handleClick}
       >
         <MoreHorizIcon fontSize="large" />
@@ -59,8 +66,8 @@ export default function NavMenu() {
           {isAuthenticated && (
             <>
               <Avatar
-                alt={`${user.name}`}
-                src={`${user.picture}`}
+                alt={user.name}
+                src={user.picture}
                 sx={{ marginRight: 1 }}
               />
               <Typography variant="body2" color="text.secondary" p={1}>
@@ -69,14 +76,16 @@ export default function NavMenu() {
             </>
           )}
         </MenuItem>
-        <MenuItem key="setting" onClick={handleSettings}>
-          <ListItemIcon>
-            <SettingsIcon fontSize="small" />
-          </ListItemIcon>
-          <Typography variant="body2" color="text.secondary">
-            Settings
-          </Typography>
-        </MenuItem>
+        {showSettings && (
+          <MenuItem key="setting" onClick={handleSettings}>
+            <ListItemIcon>
+              <SettingsIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography variant="body2" color="text.secondary">
+              Settings
+            </Typography>
+          </MenuItem>
+        )}
 
         <MenuItem key="logout" onClick={logout}>
           <ListItemIcon>
