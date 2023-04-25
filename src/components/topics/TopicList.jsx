@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import TopicListItem from "./TopicListItem";
-import { Autocomplete, Grid, InputAdornment, TextField } from "@mui/material";
-import AddTopicButton from "./AddTopicButton";
-import { Search } from "@mui/icons-material";
-import Backdrop from "@mui/material/Backdrop";
-import TopicForm from "../settings/TopicForm";
+import React, { useContext, useState } from 'react';
+import TopicListItem from './TopicListItem';
+import { Autocomplete, Grid, InputAdornment, TextField } from '@mui/material';
+import AddTopicButton from './AddTopicButton';
+import { Search } from '@mui/icons-material';
+import Backdrop from '@mui/material/Backdrop';
+import TopicForm from '../settings/TopicForm';
+import { UserContext } from '../../providers/UserProvider';
 
-const TopicList = ({ state, setState }) => {
-  const [searchQuery, setSearchQuery] = useState("");
+const TopicList = () => {
+  const [searchQuery, setSearchQuery] = useState('');
   const [open, setOpen] = useState(false);
+  const { topics } = useContext(UserContext);
 
-  // If searchQuery is empty, then the includes() method will return true for every topic's name property,
-  // because an empty string is included in every string.
-  const filteredTopics = state.topics.filter((topic) =>
+  const filteredTopics = topics.filter((topic) =>
     topic.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -33,30 +33,28 @@ const TopicList = ({ state, setState }) => {
 
   return (
     <Grid
-      className="topics-container"
+      className='topics-container'
       container
       sx={{
-        flowDirection: "column",
-        height: "100vh",
-        px: "2%",
-        paddingTop: "8%",
-        width: "65%",
-        margin: "0 auto",
-      }}
-    >
+        flowDirection: 'column',
+        height: '100vh',
+        px: '2%',
+        paddingTop: '8%',
+        width: '65%',
+        margin: '0 auto',
+      }}>
       {/*search bar*/}
       <Grid
         container
-        className="topics-search-container"
+        className='topics-search-container'
         sx={{
-          width: "20%",
-          display: "block",
-          position: "absolute",
+          width: '20%',
+          display: 'block',
+          position: 'absolute',
           padding: 1,
-        }}
-      >
+        }}>
         <Autocomplete
-          options={state.topics}
+          options={topics}
           getOptionLabel={(topic) => topic.name}
           onInputChange={(event, newInputValue) => {
             setSearchQuery(newInputValue);
@@ -65,28 +63,28 @@ const TopicList = ({ state, setState }) => {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Search Topics"
+              label='Search Topics'
               sx={{
-                bgcolor: "rgba(0, 0, 0, 0.2)",
+                bgcolor: 'rgba(0, 0, 0, 0.2)',
                 borderRadius: 2,
               }}
-              variant="filled"
+              variant='filled'
               InputProps={{
                 disableUnderline: true,
                 startAdornment: (
-                  <InputAdornment position="start">
+                  <InputAdornment position='start'>
                     <Search
                       sx={{
-                        color: "gray.500",
-                        marginRight: "5px",
-                        marginBottom: "7px",
+                        color: 'gray.500',
+                        marginRight: '5px',
+                        marginBottom: '7px',
                       }}
                     />
                   </InputAdornment>
                 ),
               }}
               InputLabelProps={{
-                sx: { color: "primaryCodi.dark" },
+                sx: { color: 'primaryCodi.dark' },
               }}
             />
           )}
@@ -96,25 +94,23 @@ const TopicList = ({ state, setState }) => {
       <Grid
         container
         sx={{
-          overflow: "auto",
+          overflow: 'auto',
           maxHeight: 595,
-          "&::-webkit-scrollbar": {
-            display: "none",
+          '&::-webkit-scrollbar': {
+            display: 'none',
           },
           marginTop: 13,
         }}
-        className="topics-list-container"
-      >
+        className='topics-list-container'>
         <AddTopicButton onOpen={onOpen} />
         <Backdrop
           sx={{
-            color: "#fff",
+            color: '#fff',
             zIndex: (theme) => theme.zIndex.drawer + 1,
-            bgcolor: "rgba(0, 0, 0, 0.8)",
+            bgcolor: 'rgba(0, 0, 0, 0.8)',
           }}
-          open={open}
-        >
-          <TopicForm onOpen={onOpen} state={state} setState={setState} />
+          open={open}>
+          <TopicForm onOpen={onOpen} />
         </Backdrop>
         {topicListItems}
       </Grid>
