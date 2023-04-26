@@ -67,7 +67,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         domain={process.env.REACT_APP_AUTH0_DOMAIN}
         clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
         authorizationParams={{
-          redirect_uri: "http://localhost:3000/topics",
+          redirect_uri: "https://codi-app.netlify.app/topics",
           scope: "profile",
           audience: process.env.REACT_APP_AUTH0_AUDIANCE,
         }}
