@@ -12,10 +12,8 @@ const BarChart = ({ onClick }) => {
   let easeFactors = ease.map((e) => e.ease_factor);
   let counts = ease.map((e) => e.count);
 
-  if (topic.id === "8e3399e6-1d94-11ec-9621-0242ac130002") {
-    easeFactors = [1.8, 2.3, 2.4, 2.5, 2.65, 2.8];
-    counts = [1, 3, 8, 20, 4, 2];
-  }
+  easeFactors = [1.8, 2.3, 2.4, 2.5, 2.65, 2.8];
+  counts = [1, 3, 8, 20, 4, 2];
 
   const option = {
     grid: {
