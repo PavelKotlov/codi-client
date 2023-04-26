@@ -7,7 +7,11 @@ import { useContext } from "react";
 import { topicContext } from "../../providers/TopicProvider";
 
 const Gauge = ({ onClick }) => {
-  let { maturityPercentage } = useContext(topicContext);
+  let { maturityPercentage, topic } = useContext(topicContext);
+
+  if (topic.id === "8e3399e6-1d94-11ec-9621-0242ac130002") {
+    maturityPercentage = 30;
+  }
 
   const option = {
     series: [

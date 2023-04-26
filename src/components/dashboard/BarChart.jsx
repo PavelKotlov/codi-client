@@ -9,11 +9,13 @@ import { topicContext } from "../../providers/TopicProvider";
 const BarChart = ({ onClick }) => {
   const { ease } = useContext(topicContext);
 
-  const easeFactors = ease.map((e) => e.ease_factor);
-  const counts = ease.map((e) => e.count);
+  let easeFactors = ease.map((e) => e.ease_factor);
+  let counts = ease.map((e) => e.count);
 
-  // const dummyEase = [1.8, 2.3, 2.4, 2.5, 2.65, 2.8];
-  // const dummyCounts = [1, 3, 8, 20, 4, 2];
+  if (topic.id === "8e3399e6-1d94-11ec-9621-0242ac130002") {
+    easeFactors = [1.8, 2.3, 2.4, 2.5, 2.65, 2.8];
+    counts = [1, 3, 8, 20, 4, 2];
+  }
 
   const option = {
     grid: {
