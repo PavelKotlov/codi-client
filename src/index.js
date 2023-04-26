@@ -14,6 +14,11 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import TopicProvider from "./providers/TopicProvider";
 import codiTheme from "./codi-theme";
 import UserProvider from "./providers/UserProvider";
+import axios from "axios";
+
+if (process.env.REACT_APP_API_BASE_URL) {
+  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+}
 
 const router = createBrowserRouter([
   {
