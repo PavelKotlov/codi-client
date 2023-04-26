@@ -147,7 +147,6 @@ const TopicProvider = (props) => {
   };
 
   const addCard = async (card) => {
-    console.log("Here is the added card info", card);
     const response = await axios.post(
       `/api/topics/${card.topicId}/cards`,
       {

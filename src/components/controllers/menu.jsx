@@ -83,7 +83,7 @@ export default function NavMenu({ showSettings, setOpen, openTopicFormState }) {
           <MenuItem
             key="setting"
             onClick={() => {
-              handleSettings();
+              console.log("You clicked settings");
             }}
           >
             <ListItemIcon>

@@ -37,7 +37,7 @@ export default function Quiz() {
   const updateCardsQueue = async (card, response_type) => {
     const updatedCardsQueue = [...cardsQueue];
 
-    if (topic.max_cards > cardsQueue.length) {
+    if (topic.max_cards >= cardsQueue.length) {
       if (response_type === "EASY") {
         updatedCardsQueue.splice(index, 1);
       }

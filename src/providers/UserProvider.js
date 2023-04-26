@@ -1,6 +1,6 @@
-import { useState, useEffect, createContext } from 'react';
-import axios from 'axios';
-import { useAuth0 } from '@auth0/auth0-react';
+import { useState, useEffect, createContext } from "react";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export const UserContext = createContext();
 
@@ -14,8 +14,8 @@ const UserProvider = (props) => {
     getAccessTokenSilently({
       authorizationParams: {
         audience: process.env.REACT_APP_AUTH0_AUDIANCE,
-        scope: 'profile',
-        prompt: 'consent',
+        scope: "profile",
+        prompt: "consent",
       },
     })
       .then((accessToken) => {
@@ -35,7 +35,6 @@ const UserProvider = (props) => {
   }, [getAccessTokenSilently, user?.sub]);
 
   const value = { loading, token, topics, setTopics };
-  console.log(value);
 
   return (
     <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
