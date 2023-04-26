@@ -10,6 +10,12 @@
 
   # Default build command.
   command = "CI= npm run build"
+  
 
 [build.environment]
   REACT_APP_API_BASE_URL = "https://codi-api-production.up.railway.app/"
+
+[[redirects]]
+  from = "/"
+  to = "/*"
+  status = 200
