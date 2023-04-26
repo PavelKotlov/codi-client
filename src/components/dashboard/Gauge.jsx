@@ -7,9 +7,7 @@ import { useContext } from "react";
 import { topicContext } from "../../providers/TopicProvider";
 
 const Gauge = ({ onClick }) => {
-  // TODO: remove fake value and make it const
   let { maturityPercentage } = useContext(topicContext);
-  maturityPercentage = 30;
 
   const option = {
     series: [

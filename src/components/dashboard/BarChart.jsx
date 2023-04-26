@@ -12,8 +12,8 @@ const BarChart = ({ onClick }) => {
   const easeFactors = ease.map((e) => e.ease_factor);
   const counts = ease.map((e) => e.count);
 
-  const dummyEase = [1.8, 2.3, 2.4, 2.5, 2.65, 2.8];
-  const dummyCounts = [1, 3, 8, 20, 4, 2];
+  // const dummyEase = [1.8, 2.3, 2.4, 2.5, 2.65, 2.8];
+  // const dummyCounts = [1, 3, 8, 20, 4, 2];
 
   const option = {
     grid: {
@@ -25,7 +25,7 @@ const BarChart = ({ onClick }) => {
     xAxis: {
       name: "Ease",
       type: "category",
-      data: dummyEase,
+      data: easeFactors,
       axisTick: {
         show: false,
       },
@@ -49,7 +49,7 @@ const BarChart = ({ onClick }) => {
     },
     series: [
       {
-        data: dummyCounts,
+        data: counts,
         type: "bar",
         barWidth: "40%",
         color: "#271D30",

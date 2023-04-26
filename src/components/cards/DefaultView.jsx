@@ -23,13 +23,13 @@ const DefaultView = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-          {/*TODO: add an alt tag to the final image*/}
           <Box>
             <img
               src={
                 `${process.env.PUBLIC_URL}` +
                 "/assets/images/light/browse/lady.png"
               }
+              alt="lady-dev"
               width={650}
             />
           </Box>

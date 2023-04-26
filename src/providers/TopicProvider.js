@@ -10,7 +10,6 @@ import { UserContext } from "./UserProvider";
 
 export const topicContext = createContext();
 
-//TODO: Down the line topic provider needs to be renamed everywhere are DataProvider
 const TopicProvider = (props) => {
   const { token } = useContext(UserContext);
   const { topic_id } = useParams();
@@ -86,7 +85,6 @@ const TopicProvider = (props) => {
       }));
     });
   }, [cardsChanged]);
-  //TODO:  state.cards in the array on line 86 was making the useEffect to rerender the page endlessly
 
   const addReview = (topic, card, selection) => {
     const updatedCard = sra(selection, card);

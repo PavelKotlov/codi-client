@@ -29,7 +29,6 @@ const SideBarList = (props) => {
 
   return (
     <Box>
-      {/* TODO: change input text color and label color (on focus) */}
       <Autocomplete
         options={cards}
         getOptionLabel={(card) => card.front}

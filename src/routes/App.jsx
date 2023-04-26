@@ -20,7 +20,6 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 const App = () => {
   const { isAuthenticated, user, loginWithRedirect, logout } = useAuth0();
-  //TODO: About us section need much smaller image, icon also needs to be smaller in nav bar, feature sections need to be reviewed seem to be wrong files because of the side sticthing does not match
 
   const navigate = useNavigate();
 

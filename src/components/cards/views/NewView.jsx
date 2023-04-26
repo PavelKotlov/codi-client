@@ -260,7 +260,7 @@ const NewView = (props) => {
           </Grid>
         )} */}
         {/*AUTO GENERATE BUTTONS*/}
-        {!auto && isConcept && (
+        {/* {!auto && isConcept && (
           <Grid item xs={12}>
             <FormControlLabel
               control={
@@ -276,7 +276,7 @@ const NewView = (props) => {
               sx={{ color: "primaryCodi.dark" }}
             />
           </Grid>
-        )}
+        )} */}
         {/*SAVE BUTTONS*/}
         <Grid item xs={12}>
           {loading && <CircularProgress />}

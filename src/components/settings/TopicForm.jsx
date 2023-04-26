@@ -1,21 +1,21 @@
-import { Button, Grid, TextField, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import React, { useState, useEffect, useContext } from 'react';
-import Paper from '@mui/material/Paper';
-import axios from 'axios';
-import { UserContext } from '../../providers/UserProvider';
+import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import React, { useState, useEffect, useContext } from "react";
+import Paper from "@mui/material/Paper";
+import axios from "axios";
+import { UserContext } from "../../providers/UserProvider";
 
 export default function TopicForm(props) {
   const { token, topics, setTopics } = useContext(UserContext);
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [maxCards, setMaxCards] = useState(25);
-  const [imageURL, setImageURL] = useState('');
+  const [imageURL, setImageURL] = useState("");
 
   const resetForm = () => {
-    setName('');
+    setName("");
     setMaxCards(25);
-    setImageURL('');
+    setImageURL("");
   };
 
   // useEffect(() => {
@@ -46,7 +46,6 @@ export default function TopicForm(props) {
           name: name,
           image_url: imageURL,
           max_cards: Number(maxCards),
-          //TODO: change to logged in user
         },
         {
           headers: {
@@ -94,16 +93,16 @@ export default function TopicForm(props) {
 
   return (
     <Box>
-      <Paper elevation={5} sx={{ bgcolor: 'White', p: 4, borderRadius: 5 }}>
-        <Grid container direction='column'>
+      <Paper elevation={5} sx={{ bgcolor: "White", p: 4, borderRadius: 5 }}>
+        <Grid container direction="column">
           <Grid item sx={{ py: 2 }}>
-            <Typography variant='h5'>Create New Topic</Typography>
+            <Typography variant="h5">Create New Topic</Typography>
           </Grid>
 
           <Grid item xs={8}>
             <TextField
-              id='standard-multiline-static'
-              label='Topic Name'
+              id="standard-multiline-static"
+              label="Topic Name"
               multiline
               rows={1}
               fullWidth
@@ -115,12 +114,12 @@ export default function TopicForm(props) {
             />
 
             <TextField
-              id='standard-multiline-static'
-              label='Maximum Cards per Study Session'
+              id="standard-multiline-static"
+              label="Maximum Cards per Study Session"
               fullWidth
               sx={{ my: 2 }}
               inputProps={{
-                type: 'number',
+                type: "number",
                 min: 0,
                 step: 1,
               }}
@@ -131,8 +130,8 @@ export default function TopicForm(props) {
             />
 
             <TextField
-              id='standard-multiline-static'
-              label='Image URL'
+              id="standard-multiline-static"
+              label="Image URL"
               multiline
               rows={1}
               fullWidth
@@ -144,16 +143,17 @@ export default function TopicForm(props) {
             />
           </Grid>
           <Grid item sx={{ py: 2 }}>
-            <Button variant='contained' onClick={handleSave}>
+            <Button variant="contained" onClick={handleSave}>
               Save
             </Button>
             <Button
-              variant='outlined'
-              color='error'
+              variant="outlined"
+              color="error"
               sx={{ marginLeft: 2 }}
               onClick={() => {
                 props.onOpen();
-              }}>
+              }}
+            >
               Cancel
             </Button>
           </Grid>
