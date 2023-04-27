@@ -1,7 +1,6 @@
 const futureDate = require("../date/futureDate");
 
 const responseGraduated = (selection, cardObject) => {
-  const today = new Date();
   const card = cardObject;
 
   if (selection === "HARD") {

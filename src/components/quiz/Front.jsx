@@ -106,7 +106,11 @@ export default function Front(props) {
                 onClick={() => setViewEditor((prev) => !prev)}
               >
                 Code Editor
-                <KeyboardDoubleArrowDownIcon className="arrow-icon" />
+                {viewEditor ? (
+                  <KeyboardDoubleArrowUpIcon className="arrow-icon" />
+                ) : (
+                  <KeyboardDoubleArrowDownIcon className="arrow-icon" />
+                )}
               </Button>
             )}
             <Grid

@@ -1,7 +1,6 @@
 const futureDate = require("../date/futureDate");
 
 const responseLearning = (selection, cardObject) => {
-  const today = new Date();
   const card = cardObject;
 
   if (selection === "GOOD") {

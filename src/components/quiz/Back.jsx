@@ -71,7 +71,7 @@ export default function Back(props) {
               {currentCard.back}
             </Typography>
           )}
-          {/*TODO:Maybe Add Languages dropdown menu*/}
+          {/*TODO:Add Languages dropdown menu*/}
           {currentCard.type === "CHALLENGE" && (
             <CodeBlock
               language="JavaScript"

@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext } from "react";
 import TopicList from "../components/topics/TopicList";
 import Loading from "../components/Loading";
 import NavMenu from "../components/controllers/menu";

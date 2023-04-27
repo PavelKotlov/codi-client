@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Front from "../components/quiz/Front";
 import Back from "../components/quiz/Back";
 import { useState } from "react";
-import { Box, Button, createTheme, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import "../components/quiz/quiz.css";
 import { topicContext } from "../providers/TopicProvider";
 import { useContext } from "react";

@@ -582,15 +582,6 @@ const App = () => {
           height: 473,
         }}
       >
-        <Typography
-          variant="h4"
-          position="absolute"
-          color="primaryCodi.light"
-          bottom={-3840}
-          right={90}
-        >
-          Meet the team
-        </Typography>
         <Grid container xs={12} display="flex" mx={50} my={50} height="70%">
           <Grid item xs={4} padding={5}>
             <Card
