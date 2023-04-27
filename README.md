@@ -44,13 +44,14 @@
   
 https://user-images.githubusercontent.com/107829745/234752229-1bb33b0f-a5e4-4579-8389-028c673c1122.mp4
 
-- **Automation & Manual Card Creation**
+
+- Flashcard management: users can manage flashcards for a specific topic.
 
 https://user-images.githubusercontent.com/107829745/234752225-1e3c840e-eec9-44a9-b4bc-b8dca62a9c02.mp4
 
+- **Automation & Manual Card Creation**
   - Concept Cards: Users can generate flashcard automatically by pasting in a study note into the auto section of create new concept card.
   - Exercise Cards: Users can generate one exercise card automatically by checking the Auto generate exercise checkbox in either create new concept card view or edit a concept card view.
- - Flashcard management: users can manage flashcards for a specific topic.
 
 - **Analytics**
 
