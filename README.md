@@ -40,6 +40,7 @@
 <img width="1434" alt="Topics" src="https://user-images.githubusercontent.com/107829745/234752231-daf57e52-c881-44a1-a301-f28a755a6fdb.png">
 
 - Flashcard management: users can manage flashcards for a specific topic.
+
 https://user-images.githubusercontent.com/107829745/234752225-1e3c840e-eec9-44a9-b4bc-b8dca62a9c02.mp4
 
 - Study Session:
