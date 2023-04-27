@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/107829745/234752224-f00359f6-b085-4f2d-bfb2-454614fcb7ee.png">
+</p>
+
 # 🔗 Codi-Client
 
 ### Say goodbye to boring memorization - Codi's flashcard-based platform makes learning to code a fun and seamless experience with progress tracking to keep you motivated.
@@ -29,16 +33,18 @@
   - [⚠️ Disclaimer](#️-disclaimer)
 
 ## 📷 Thumbnails
-
+![codi-hero](https://user-images.githubusercontent.com/107829745/234752222-95c56abc-1f63-4c2d-8492-1c1c26b422a8.png)
 ## 🌟 Features
 
 - Topics Panel:
-  ![Topics Panel]()
+<img width="1434" alt="Topics" src="https://user-images.githubusercontent.com/107829745/234752231-daf57e52-c881-44a1-a301-f28a755a6fdb.png">
 
 - Flashcard management: users can manage flashcards for a specific topic.
+https://user-images.githubusercontent.com/107829745/234752225-1e3c840e-eec9-44a9-b4bc-b8dca62a9c02.mp4
 
 - Study Session:
-  ![Flashcard Quiz]()
+  
+https://user-images.githubusercontent.com/107829745/234752229-1bb33b0f-a5e4-4579-8389-028c673c1122.mp4
 
 - **Automation**
 
@@ -48,7 +54,7 @@
 - **Analytics**
 
   - Topic statistics: users can review statistics for a specific topic, such as the total number of flashcards, the number of flashcards in each status, and the number of flashcard reviews grouped by date.
-    ![Topic Dashboard]()
+    <img width="1434" alt="Dashboard" src="https://user-images.githubusercontent.com/107829745/234752226-d512f5ce-15e6-4899-985c-d1981d59d116.png">
 
 - **Security:**
   - The API requires authentication through Auth0 to access any of its endpoints.
