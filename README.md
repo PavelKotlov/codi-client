@@ -39,18 +39,18 @@
 - Topics Panel:
 <img width="1434" alt="Topics" src="https://user-images.githubusercontent.com/107829745/234752231-daf57e52-c881-44a1-a301-f28a755a6fdb.png">
 
-- Flashcard management: users can manage flashcards for a specific topic.
-
-https://user-images.githubusercontent.com/107829745/234752225-1e3c840e-eec9-44a9-b4bc-b8dca62a9c02.mp4
 
 - Study Session:
   
 https://user-images.githubusercontent.com/107829745/234752229-1bb33b0f-a5e4-4579-8389-028c673c1122.mp4
 
-- **Automation**
+- **Automation & Manual Card Creation**
+
+https://user-images.githubusercontent.com/107829745/234752225-1e3c840e-eec9-44a9-b4bc-b8dca62a9c02.mp4
 
   - Concept Cards: Users can generate flashcard automatically by pasting in a study note into the auto section of create new concept card.
   - Exercise Cards: Users can generate one exercise card automatically by checking the Auto generate exercise checkbox in either create new concept card view or edit a concept card view.
+ - Flashcard management: users can manage flashcards for a specific topic.
 
 - **Analytics**
 
